@@ -17,3 +17,5 @@ It supports full CRUD functionalities for candidates, application,and interview 
 - MongoDB
 - Handlebars
 - CSS
+- Jwt
+- Nodemailer
