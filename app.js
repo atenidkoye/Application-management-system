@@ -47,20 +47,48 @@ app.use((req, res, next) =>{
     }
 
     next();
-})
+});
 
 
+// Home page
+app.get("/", (req, res) => {
+    res.redirect("/dashboard");
+});
 
 
+//Dashboard
+const auth = require("/middleware/auth");
+const Candidate = require("/models/Candidate");
+const auth = require("/models/Applications");
 
+app.get("/dashboard", auth, async(req, res, next) => {
+    try{
+        const totalCandidates = await Candidate.countDocuments();
 
+        const stats = await application.aggregate([
+            {$group: { _id: "$status", count: {$sum: 1}}}
+        ]);
 
+        res.render("dashboard", {
+            totalCandidates,
+            statusStatus: stats,
+            isDashboard: true
+        });
+    } catch (err) {
+        next(err);
+    }
+});
 
-
+// Error handler
+app.use(require("./middleware/errorHandler"));
 
 
 // Start server
-app.listen(port, () => {
+mongoose.connect(process.env.MONGO_URL).then(()=> {
+    console.log("server connected");
+
+    app.listen(port, () => {
     let url = `http://localhost:${port}`;
     console.log(`Server listening on ${url}`);
-})
+    })
+}).catch(err => console.log("error in connection", err));
