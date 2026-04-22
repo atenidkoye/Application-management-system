@@ -17,5 +17,9 @@
   "bugs": {
     "url": "https://github.com/atenidkoye/Application-management-system/issues"
   },
-  "homepage": "https://github.com/atenidkoye/Application-management-system#readme"
+  "homepage": "https://github.com/atenidkoye/Application-management-system#readme",
+  "dependencies": {
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1"
+  }
 }
