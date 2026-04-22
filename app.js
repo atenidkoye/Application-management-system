@@ -5,11 +5,18 @@ const cookieParser = require("cookie parser");
 const jwt = ("jsonwebtoken");
 const mongoose = require("mongoose");
 const noteRouter = require("./routes/note");
-
+const mongoose = require("mongoose");
+const applicationRouter = require("./routes/applicationRoute");
 
 // Config
 dotenv.config();
 const port = process.env.PORT || 5000;
+const uri = process.env.URI;
+
+// connecting to db
+mongoose.connect(uri)
+.then((result) => console.log('connected to db'))
+.catch((err) => console.log(err));
 
 const app = express();
 
