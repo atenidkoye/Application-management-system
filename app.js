@@ -5,11 +5,17 @@ const cookieParser = require("cookie parser");
 const jwt = ("jsonwebtoken");
 const mongoose = require("mongoose");
 const noteRouter = require("./routes/note");
-
+const applicationRouter = require("./routes/applicationRoute");
 
 // Config
 dotenv.config();
 const port = process.env.PORT || 5000;
+const uri = process.env.URI;
+
+// connecting to db
+mongoose.connect(uri)
+.then((result) => console.log('connected to db'))
+.catch((err) => console.log(err));
 
 const app = express();
 
@@ -26,8 +32,8 @@ app.set("view engine", "handlebars");
 
 //Routes
 app.use("/api/application", noteRouter);
+app.use("/api/application", applicationRouter);
 app.use("/candidates", require("./routes/candaidateRoutes"));
-app.use("/applications", require("./routes/applicationRoutes"));
 app.use("/auth", require("./routes/authRoutes"));
 
 
