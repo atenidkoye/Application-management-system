@@ -1,5 +1,9 @@
 const dotenv = require("dotenv");
 const express = require("express");
+const exhbs = require ("express-handlebars");
+const cookieParser = require("cookie parser");
+const jwt = ("jsonwebtoken");
+const mongoose = require("mongoose");
 const noteRouter = require("./routes/note");
 const mongoose = require("mongoose");
 const applicationRouter = require("./routes/applicationRoute");
@@ -15,13 +19,51 @@ mongoose.connect(uri)
 .catch((err) => console.log(err));
 
 const app = express();
+
+// Middlewares
+app.use(cookieParser())
 app.use(express.json());
-app.use(express.urlencoded());
+app.use(express.urlencoded({extended: true}));
+app.use(express.static("public"))
 
 
-// Setup Routes
+// Setting up handlebars
+app.engine("handlebars", exhbs());
+app.set("view engine", "handlebars");
+
+//Routes
 app.use("/api/application", noteRouter);
-app.use("/api/application", applicationRouter);
+app.use("/candidates", require("./routes/candaidateRoutes"));
+app.use("/applications", require("./routes/applicationRoutes"));
+app.use("/auth", require("./routes/authRoutes"));
+
+
+// Users Available in views
+app.use((req, res, next) =>{
+    const token = req.cookies.token;
+
+    if (token) {
+        try {
+            const decoded = jwt.verify(token, process.env.JWT_SECRET);
+            res.locals.user = decoded;
+        } catch{
+            res.locals.user = null;
+        }
+    } else {
+        res.locals.user = null;
+    }
+
+    next();
+})
+
+
+
+
+
+
+
+
+
 
 
 // Start server
