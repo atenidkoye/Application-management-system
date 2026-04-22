@@ -6,7 +6,11 @@ const noteRouter = express.Router();
 noteRouter.get("/:id/notes", (req, res) => {
     const id = req.params.id;
     let notes = Note.getNotes(id);
-    res.status(200).json(notes);
+    if (notes.length > 0) {
+        res.status(200).json(notes);
+    } else {
+        res.status(204).send();
+    }
 })
 
 
