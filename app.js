@@ -1,6 +1,6 @@
 const dotenv = require("dotenv");
 const express = require("express");
-const hbs = require ("hbs");
+const exhbs = require ("express-handlebars");
 const cookieParser = require("cookie parser");
 const jwt = ("jsonwebtoken");
 const mongoose = require("mongoose");
@@ -20,8 +20,9 @@ app.use(express.urlencoded({extended: true}));
 app.use(express.static("public"))
 
 
-// View Engine
-app.set("view engine", "hbs");
+// Setting up handlebars
+app.engine("handlebars", exhbs());
+app.set("view engine", "handlebars");
 
 //Routes
 app.use("/api/application", noteRouter);
