@@ -5,7 +5,6 @@ const cookieParser = require("cookie parser");
 const jwt = ("jsonwebtoken");
 const mongoose = require("mongoose");
 const noteRouter = require("./routes/note");
-const mongoose = require("mongoose");
 const applicationRouter = require("./routes/applicationRoute");
 
 // Config
@@ -33,8 +32,8 @@ app.set("view engine", "handlebars");
 
 //Routes
 app.use("/api/application", noteRouter);
+app.use("/api/application", applicationRouter);
 app.use("/candidates", require("./routes/candaidateRoutes"));
-app.use("/applications", require("./routes/applicationRoutes"));
 app.use("/auth", require("./routes/authRoutes"));
 
 
