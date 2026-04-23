@@ -33,7 +33,7 @@ app.set("view engine", "handlebars");
 //Routes
 app.use("/api/application", noteRouter);
 app.use("/api/application", applicationRouter);
-app.use("/candidates", require("./routes/candaidateRoutes"));
+app.use("/candidates", require("./routes/candidateRoutes"));
 app.use("/auth", require("./routes/authRoutes"));
 
 

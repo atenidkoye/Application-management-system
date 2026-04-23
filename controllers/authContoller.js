@@ -1,11 +1,11 @@
-const jwt = ("jsonwebtoken");
+const jwt = require("jsonwebtoken");
 
 exports.login = async (req, res) =>{
-    const user = await UserActivation.findOne({ emaail: req.body.email});
+    const user = await UserActivation.findOne({ email: req.body.email});
 
     // Validate user
-    const token = jwt.substring(
-        {
+    const token = jwt.sign(
+            {
             id: user._id, email: user.email},
             process.env.JWT_SECRET,
             { expiresIn: "1d"}
