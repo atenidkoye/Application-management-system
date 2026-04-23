@@ -42,7 +42,7 @@ applicationRouter.post("/", async (req, res) => {
             try {
                 const result = await application.save();
                 res.status(200).json(result);
-                console.log(result)
+                console.log(result);
             } catch (err) {
                 res.status(500).json({msg: "Server error"});
                 console.log(err);
@@ -56,4 +56,46 @@ applicationRouter.post("/", async (req, res) => {
     }
 );
 
+applicationRouter.patch("/status/:id", async (req, res) => {
+    const id = req.params.id;
+    try {
+        if (req.body.status && statusList.includes(req.body.status)) {
+            const updated_status = await Application.findByIdAndUpdate(id, {status: req.body.status}, {new: true});
+            res.status(200).json(updated_status);
+        } else {
+            res.status(500).json({msg: "invalid status"});
+        }
+    } catch (err) {
+        res.status(500).json({msg: "Error"});
+        console.log(err);
+    }
+});
+
+applicationRouter.patch("/:id", async (req, res) => {
+    const id = req.params.id;
+    if (req.body.name && req.body.position && req.body.status && req.body.source && req.body.applied_at) {
+        if (statusList.includes(req.body.status)) {
+            const updates = req.body;
+            try {
+                const result = await Application.updateOne({_id: id}, {$set: updates});
+                res.status(200).json(result);
+            } catch (err) {
+                res.status(500).json({msg: "error"});
+                console.log(err);
+            }
+        } else {
+            res.status(500).json({msg: "invalid status"});
+        }
+    }
+});
+
+applicationRouter.delete("/:id", async (req, res) => {
+    const id = req.params.id;
+    try {
+        const result = await Application.deleteOne({_id: id});
+        res.status(200).json(result);
+    } catch (err) {
+        res.status(500).json({msg: "error"});
+    }
+});
 module.exports = applicationRouter;
