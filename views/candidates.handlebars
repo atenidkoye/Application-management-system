@@ -1,0 +1,31 @@
+<h1>Candidates</h1>
+
+<a href="/routes/add">Add Candidate</a>
+
+<ul class="candidate-list">
+    {{#each candidates }}
+    <li class="candidate-card">
+        <div>
+            <strong>{{this.name}}</strong><br>
+            {{this.email}}<br>
+            <small>{{this.skills}}</small>
+        </div>
+        
+        <div>
+            // View Candidates
+            <a href="candidates/{{this._id}}">View</a>
+
+            // Edit Candidates
+            <a href="candidates/edit/{{this._id}}">Edit</a>
+            // Delete Candidate
+            <form action="/candidates/delete/{{this._id}}" method="POST" style="display: inline;">
+                <button type="submit" onclick="return confirm('Delete this candidate?')">
+                    Delete
+                </button>
+            </form>
+        </div>
+    </li>
+
+    {{/each}}
+
+</ul>
