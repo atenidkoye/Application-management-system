@@ -1,11 +1,11 @@
 const express = require("express");
-const Note = require("../models/note")
+const {Note, saveNote, updateNote, deleteNote} = require("../models/note")
 const noteRouter = express.Router();
 
 // Get all notes for a single application
-noteRouter.get("/:id/notes", (req, res) => {
-    const id = req.params.id;
-    let notes = Note.getNotes(id);
+noteRouter.get("/:applicationID/notes", async (req, res) => {
+    const id = req.params.applicationID;
+    let notes = await Note.find({applicationID: id});
     if (notes.length > 0) {
         res.status(200).json(notes);
     } else {
@@ -15,30 +15,42 @@ noteRouter.get("/:id/notes", (req, res) => {
 
 
 // Create a new note for application
-noteRouter.post("/:id/notes", (req, res) => {
-    const id = req.params.id;
+noteRouter.post("/:applicationID/notes", async (req, res) => {
+    const id = req.params.applicationID;
     const body = req.body;
-    let note = Note.addNote(id, body.text, Number.parseInt(body.rating));
-    res.status(200).json(note);
+    const note = await saveNote(id, body.text, Number.parseInt(body.rating));
+    if (note) {
+        res.status(200).json(note);
+    } else {
+        res.status(500).json({msg: "Server error"});
+    }
 })
 
 
 // Update a note for application
-noteRouter.put("/:id/notes/:noteIndex", (req, res) => {
+noteRouter.put("/:applicationID/notes/:id", async (req, res) => {
+    const applicationID = req.params.applicationID;
     const id = req.params.id;
-    const noteIndex = req.params.noteIndex;
     const body = req.body;
-    let note = Note.updateNote(id, noteIndex, body.text, Number.parseInt(body.rating));
-    res.status(200).json(note);
+    const result = await updateNote(applicationID, id, body.text, Number.parseInt(body.rating));
+    if (result.acknowledged) {
+        res.status(204).send();
+    } else {
+        res.status(500).json({msg: "Server error"});
+    }
 })
 
 
 // Delete a note for application
-noteRouter.delete("/:id/notes/:noteIndex", (req, res) => {
+noteRouter.delete("/:applicationID/notes/:id", async (req, res) => {
+    const applicationID = req.params.applicationID;
     const id = req.params.id;
-    const noteIndex = req.params.noteIndex;
-    let note = Note.deleteNote(id, noteIndex);
-    res.status(200).json(note);
+    const result = await deleteNote(applicationID, id);
+    if (result.acknowledged) {
+        res.status(200).send();
+    } else {
+        res.status(500).json({msg: "Server error"})
+    }
 })
 
 module.exports = noteRouter;
