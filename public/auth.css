@@ -1,0 +1,61 @@
+form {
+    width: 300px;
+    margin: 50vh auto;
+    transform: translateY(-50%);
+    position: relative;
+}
+
+.row {
+    margin-bottom: 40px;
+}
+
+.row:last-of-type {
+    margin-bottom: 20px;
+}
+
+input {
+    width: 100%;
+    border: none;
+    border: 1px solid rgba(128, 128, 128, 0.342);
+    border-bottom: 1px solid gray;
+    background-color: transparent;
+    font-size: 20px;
+    padding: 5px;
+    border-radius: 3px;
+    box-sizing: border-box;
+}
+
+label {
+    font-size: 16px;
+    margin-left: 10px;
+    position: absolute;
+    transform: translateY(-60%);
+    background-color: rgb(215, 217, 231);
+    transition: all 0.2s ease-in-out;
+}
+
+input:focus {
+    border-bottom: 2px solid rgb(53, 53, 215);
+    outline: none;
+    margin-left: 5px;
+}
+
+.row label:has(+ input:focus) {
+    transform: translateY(-100%);
+    font-size: 20px;
+}
+
+button {
+    margin-top: -10px;
+    font-size: 20px;
+    background-color: rgb(53, 53, 215);
+    border-radius: 5px;
+    color: white;
+    padding: 5px 30px;
+    position: absolute;
+    right: 0;
+}
+
+button:hover {
+    background-color: rgb(104, 132, 255);
+}

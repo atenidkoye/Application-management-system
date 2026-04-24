@@ -1,0 +1,36 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    overflow: hidden;
+}
+
+main {
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
+    height: 100vh;
+}
+
+.left {
+    grid-column: span 8;
+    background-color: rgb(215, 217, 231);
+}
+
+.right {
+    grid-column: span 2;
+    background-color: rgb(81, 113, 231);
+    border-left: 2px solid rgb(49, 74, 167);
+}
+
+.no-user {
+    width: 100%;
+    text-align: center;
+    margin-top: 50vh;
+    transform: translateY(-50%);
+}
+
+a:visited {
+    color: blue;
+}

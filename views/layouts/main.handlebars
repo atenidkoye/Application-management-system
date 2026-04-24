@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Application manager</title>
+    <link rel="stylesheet" href="/styles.css">
+    <link rel="stylesheet" href="/{{style}}.css">
+</head>
+<body>
+    <main>
+        <div class="left">
+            {{{body}}}
+        </div>
+        <div class="right">
+            {{#if user}}
+            <div class="user-info">
+                
+            </div>
+            {{else}}
+            <div class="no-user">
+                <h2>Please, log in first</h2>
+            </div>
+            {{/if}}
+        </div>
+    </main>
+        
+</body>
+</html>
