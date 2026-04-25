@@ -2,11 +2,14 @@ const dotenv = require("dotenv");
 const express = require("express");
 const exhbs = require ("express-handlebars");
 const cookieParser = require("cookie-parser");
-const jwt = ("jsonwebtoken");
+const auth = require("./middleware/auth")
 const mongoose = require("mongoose");
 const noteRouter = require("./routes/note");
 const applicationRouter = require("./routes/applicationRoute");
 const attachUser = require("./middleware/attachUser");
+const errorHandler = require("./middleware/errorHandler");
+const Candidate = require("./models/Candidate");
+const Application = require("./models/Application");
 
 // Config
 dotenv.config();
@@ -15,12 +18,11 @@ const port = process.env.PORT || 5000;
 const app = express();
 
 // Middlewares
-app.use(cookieParser())
-app.use(attachUser)
+app.use(cookieParser());
+app.use(attachUser);
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 app.use(express.static("public"))
-app.use(errorHandler)
 
 
 
@@ -31,30 +33,12 @@ app.engine("handlebars", exhbs.engine({
 app.set("view engine", "handlebars");
 
 //Routes
-app.use("/api/application", noteRouter);
-app.use("/api/application", applicationRouter);
+app.use("/api/applications", applicationRouter);
+app.use("/api/notes", noteRouter);
 app.use("/candidates", require("./routes/candidateRoutes"));
 app.use("/auth", require("./routes/authRoutes"));
-app.use("/candidates", require("./routes/candaidateRoutes"));
-app.use("/auth", require("./routes/authRoutes"));
 
 
-// Check if user is already logged in
-app.use((req, res, next) =>{
-    const token = req.cookies.token;
-
-    if (token) {
-        try {
-            const decoded = jwt.verify(token, process.env.JWT_SECRET);
-            res.locals.user = decoded;
-        } catch{
-            res.locals.user = null;
-        }
-    } else {
-        res.locals.user = null;
-    }
-    next();
-});
 
 
 // Home page
@@ -67,43 +51,25 @@ app.get("/", (req, res) => {
 });
 
 //Dashboard
-// const auth = require("./middleware/auth");
-// const Candidate = require("./models/Candidate");
+app.get("/dashboard", auth, async(req, res, next) => {
+     try{
+         const totalCandidates = await Candidate.countDocuments();
 
-app.get("/dashboard", async(req, res, next) => {
-    res.render("dashboard", {
-        style: "dashboard"
-    });
-    // try{
-    //     const totalCandidates = await Candidate.countDocuments();
+         const stats = await Application.aggregate([
+             {$group: { _id: "$status", count: {$sum: 1}}}
+         ]);
 
-    //     const stats = await application.aggregate([
-    //         {$group: { _id: "$status", count: {$sum: 1}}}
-    //     ]);
-
-    //     res.render("dashboard", {
-    //         totalCandidates,
-    //         statusStatus: stats,
-    //         isDashboard: true
-    //     });
-    // } catch (err) {
-    //     next(err);
-    // }
+         res.render("dashboard", {
+            totalCandidates,
+             statusStats: stats,
+             isDashboard: true
+         });
+     } catch (err) {
+         next(err);
+     }
 });
-
-app.get("/auth/:action", async(req, res, next) => {
-    const action = req.params.action;
-    if (action == "login" || action == "register") {
-        res.render(action, {
-            style: "auth"
-        });
-    } else {
-        res.status(404).json({msg: "The auth action was not found"})
-    }
-})
-
 // // Error handler
-// app.use(require("./middleware/errorHandler"));
+app.use(errorHandler);
 
 
 // Start server

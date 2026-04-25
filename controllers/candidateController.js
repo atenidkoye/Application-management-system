@@ -19,7 +19,7 @@ exports.getOneCandidate = async (req, res, next) => {
 
         if (!candidate) {
             req.flash("error", "Candidate not found");
-            return res.redirect("/views/candidates")
+            return res.redirect("/candidates/view")
         }
 
         res.render("candidateDetails", { candidate });
@@ -40,8 +40,8 @@ exports.create = async (req, res, next) => {
         ? req.body.skills.split(",").map(s => s.trim())
         : [];
 
-        const itExists = await Candidate.findOne({email: req.body.email});
-        if (itExists) {
+        const exists = await Candidate.findOne({email: req.body.email});
+        if (exists) {
             req.flash("error", "Invalid request");
             return res.redirect("/candidates/add");
         }
@@ -56,7 +56,7 @@ exports.create = async (req, res, next) => {
         ).catch(err => console.log("Email error", err.message));
 
         req.flash("success", "Candidate created successfully");
-        res.redirect("/views/candidates");
+        res.redirect("/candidates/view");
     } catch (err) {
         next(err);
     }
@@ -69,7 +69,7 @@ exports.editCandidate = async (req, res, next) => {
 
         if (!candidate) {
             req.flash("error", "Candidate not found");
-            return res.redirect("/views/candidates");
+            return res.redirect("/candidates/view");
         }
 
         res.render("editCandidate", { candidate });
@@ -92,22 +92,22 @@ exports.updateCandidate = async (req, res, next) => {
 
         if (exists) {
             req.flash("error", "Invalid Request");
-            return res.redirect(`/views/edit/${req.params.id}`);
+            return res.redirect(`/candidates/edit/${req.params.id}`);
         }
 
-        const Updated = await Candidate.findByIdUpdate(
+        const updated = await Candidate.findByIdAndUpdate(
             req.params.id,
             req.body,
             { new: true }
         );
 
-        if (!this.updateForm) {
+        if (!updated) {
             req.flash("error", "Candidate not found");
-            return res.redirect("/views/candidates")
+            return res.redirect("/candidates/view")
         }
 
         req.flash("success", "Candidate updated");
-        res.redirect("/views/candidates")
+        res.redirect("/candidates/view")
     } catch(err) {
         next(err);
     }
@@ -116,15 +116,15 @@ exports.updateCandidate = async (req, res, next) => {
 // Delete Form
 exports.deleteForm = async (req, res, next) => {
     try{
-        const deleted = await Candidate.findByAndDelete(req.params.id);
+        const deleted = await Candidate.findByIdAndDelete(req.params.id);
 
         if (!deleted) {
             req.flash("error", "Candidate not found");
-            return res.redirect("/views/candidates");
+            return res.redirect("/candidates/view");
         }
 
         req.flash("success", "Candidate deleted successfully");
-        res.redirect("/views/candidates");
+        res.redirect("/candidates/view");
     } catch (err) {
         next(err);
     }
