@@ -5,6 +5,7 @@ const cookieParser = require("cookie-parser");
 const jwt = ("jsonwebtoken");
 const mongoose = require("mongoose");
 const noteRouter = require("./routes/note");
+app.use("/candidates", require("./routes/candidateRoutes"));
 const applicationRouter = require("./routes/applicationRoute");
 
 // Config
