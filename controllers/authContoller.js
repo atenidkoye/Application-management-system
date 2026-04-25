@@ -14,6 +14,6 @@ exports.login = async (req, res) =>{
     // Store cookie
     res.cookie("token", token, { httpOnly: true});
 
-    res.redirect("/dashbaord");
+    res.redirect("/dashboard");
 
 }
