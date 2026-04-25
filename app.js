@@ -5,8 +5,8 @@ const cookieParser = require("cookie-parser");
 const jwt = ("jsonwebtoken");
 const mongoose = require("mongoose");
 const noteRouter = require("./routes/note");
-app.use("/candidates", require("./routes/candidateRoutes"));
 const applicationRouter = require("./routes/applicationRoute");
+const attachUser = require("./middleware/attachUser");
 
 // Config
 dotenv.config();
@@ -16,9 +16,12 @@ const app = express();
 
 // Middlewares
 app.use(cookieParser())
+app.use(attachUser)
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 app.use(express.static("public"))
+app.use(errorHandler)
+
 
 
 // Setting up handlebars
@@ -30,10 +33,10 @@ app.set("view engine", "handlebars");
 //Routes
 app.use("/api/application", noteRouter);
 app.use("/api/application", applicationRouter);
-// app.use("/candidates", require("./routes/candidateRoutes"));
-// app.use("/auth", require("./routes/authRoutes"));
-// app.use("/candidates", require("./routes/candaidateRoutes"));
-// app.use("/auth", require("./routes/authRoutes"));
+app.use("/candidates", require("./routes/candidateRoutes"));
+app.use("/auth", require("./routes/authRoutes"));
+app.use("/candidates", require("./routes/candaidateRoutes"));
+app.use("/auth", require("./routes/authRoutes"));
 
 
 // Check if user is already logged in
