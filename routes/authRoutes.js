@@ -1,5 +1,6 @@
 const router = require("express").Router();
 const ctrl = require("../controllers/authContoller");
+const {registerSchema, loginSchema } = require("../validations/candidateValidation");
 
 
 // Show Login
@@ -8,10 +9,10 @@ router.get("/login", (req, res) => {
 });
 
 //Login
-router.post("/login", ctrl.login);
+router.post("/login", validate(loginSchema), ctrl.login);
 
 // Show Register
-router.get("/register", (req, res) => {
+router.get("/register", validate(registerSchema), (req, res) => {
     res.render("register")
 })
 
