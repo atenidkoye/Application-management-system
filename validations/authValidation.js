@@ -5,7 +5,7 @@ const joi = require("joi");
 exports.registerSchema = joi.object({
     email: joi.string().email().required(),
     password: joi.string().min(6).required(),
-    confirmPassword: joi.ref("passwrd")
+    "confirm-password": joi.any().valid(joi.ref('password')).required()
 });
 
 //Login

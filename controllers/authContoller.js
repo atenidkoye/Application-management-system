@@ -1,5 +1,5 @@
 const jwt = require("jsonwebtoken");
-const { User } = require("../models/user");
+const { User, createUser } = require("../models/user");
 const attachUser = require("../middleware/attachUser");
 
 exports.login = async (req, res, next) => {
@@ -32,12 +32,36 @@ exports.login = async (req, res, next) => {
         sameSite: "strict"
     });
 
+    // Attach user to response
     await attachUser(req, res, next);
-
-
-    res.redirect("/")
+    res.redirect("/");
 }
 
 exports.register = async (req, res, next) => {
-    res.redirect("/dashboard")
+    const email = req.body.email;
+    const password = req.body.password;
+
+    if (await User.findOne({email})) {
+        res.redirect("/auth/register");
+        return;
+    }
+
+    const user = await createUser(email, password);
+
+    // Jwt Token
+    const token = jwt.sign(
+        { id: user._id, email: user.email},
+        process.env.JWT_SECRET,
+        { expiresIn: "2d"}
+    );
+
+    // Store cookie
+    res.cookie("token", token, {
+        httpOnly: true,
+        sameSite: "strict"
+    });
+
+    // Attach user to response
+    await attachUser(req, res, next);
+    res.redirect("/");
 }

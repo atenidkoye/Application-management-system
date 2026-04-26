@@ -6,7 +6,7 @@ module.exports =(schema) => {
 
         if (error) {
             req.flash("error", error.details[0].message);
-    return res.redirect(req.headers.referer|| "/" )
+            return res.redirect(req.headers.referer|| "/" )
         }
         req.body = value;
         next();

@@ -15,5 +15,12 @@ const user = mongoose.model("User", userSchema);
 
 // Export model and functions
 module.exports = {
-    User: user
+    User: user,
+    createUser: async (email, password) => {
+        return await new user({
+            email,
+            password,
+            createdAt: new Date()
+        }).save()
+    }
 }
