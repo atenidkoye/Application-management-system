@@ -1,20 +1,25 @@
 const jwt = require("jsonwebtoken");
-const Candidate = require("../models/Candidate");
+const { User } = require("../models/user");
+const attachUser = require("../middleware/attachUser");
 
+exports.login = async (req, res, next) => {
 
-exports.login = async (req, res, next) =>{
-    try{
-        const {email} = req.body;
+    const email = req.body.email;
+    const password = req.body.password;
 
-        // Find User
-        const user = await Candidate.findOne({email});
+    const user = await User.findOne({email});
 
-        if(!user){
-            req.flash("error", "User not found");
-            return res.redirect("/auth/login");
-        }
+    if (!user) {
+        res.redirect("/auth/login");
+        return;
+    }
 
-        // Jwt Token
+    if (user.password != password) {
+        res.redirect("/auth/login");
+        return;
+    }
+
+    // Jwt Token
     const token = jwt.sign(
         { id: user._id, email: user.email},
         process.env.JWT_SECRET,
@@ -27,9 +32,12 @@ exports.login = async (req, res, next) =>{
         sameSite: "strict"
     });
 
-    res.redirect("/dashboard");
-    } catch(err){
-        next(err);
-    }
+    await attachUser(req, res, next);
 
+
+    res.redirect("/")
+}
+
+exports.register = async (req, res, next) => {
+    res.redirect("/dashboard")
 }
