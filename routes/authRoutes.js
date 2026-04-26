@@ -26,6 +26,7 @@ router.post("/register", validate(registerSchema), ctrl.register);
 
 // Logout
 router.get("/logout", (req, res) => {
+    res.locals.user = null;
     res.clearCookie("token");
     res.redirect("/auth/login");
 })

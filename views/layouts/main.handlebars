@@ -15,7 +15,8 @@
         <div class="right">
             {{#if user}}
             <div class="user-info">
-                
+                <h2>Welcome,<br>{{user.email}}</h2>
+                <a href="/auth/logout">Log out</a>
             </div>
             {{else}}
             <div class="no-user">
@@ -24,6 +25,5 @@
             {{/if}}
         </div>
     </main>
-        
 </body>
 </html>

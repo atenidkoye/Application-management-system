@@ -24,6 +24,36 @@ main {
     border-left: 2px solid rgb(49, 74, 167);
 }
 
+.user-info {
+    width: 100%;
+    text-align: center;
+    padding-top: 25vh;
+    height: 50%;
+}
+
+.user-info a {
+    border: 1px solid gray;
+    border-radius: 5px;
+    background-color: rgb(215, 217, 231);
+    padding: 10px 20px;
+    font-size: 20px;
+    display: block;
+    margin: 0 auto;
+    width: 50%;
+    box-sizing: border-box;
+    margin-top: 100%;
+    text-decoration: none;
+    color: black;
+}
+
+.user-info a:visited {
+    color: black;
+}
+
+.user-info a:hover {
+    background-color: rgb(189, 193, 222);
+}
+
 .no-user {
     width: 100%;
     text-align: center;
