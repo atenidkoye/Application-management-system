@@ -21,6 +21,8 @@ const authRouter = require("./routes/authRoutes");
 // Models
 const Candidate = require("./models/Candidate");
 const Application = require("./models/Application");
+const {getNoteWithTemplate} = require("./models/note");
+
 
 // Config
 dotenv.config();
@@ -36,10 +38,13 @@ app.use(express.urlencoded({extended: true}));
 app.use(express.static("public"))
 
 
-
 // Setting up handlebars
 app.engine("handlebars", exhbs.engine({
-    defaultLayout: "main"
+    defaultLayout: "main",
+    helpers: {
+        getStarState: (index, total) => (index <= total) ? "on" : "off",
+        showNote: (note) => hbs.handlebars.compile(note.template)()
+    }
 }));
 app.set("view engine", "handlebars");
 
@@ -59,6 +64,7 @@ app.get("/", (req, res) => {
     }
 });
 
+
 //Dashboard
 app.get("/dashboard", auth, async(req, res, next) => {
     try{
@@ -69,7 +75,7 @@ app.get("/dashboard", auth, async(req, res, next) => {
         ]);
 
         res.render("dashboard", {
-        totalCandidates,
+            totalCandidates,
             statusStats: stats,
             isDashboard: true
         });

@@ -35,5 +35,13 @@ module.exports = {
     },
     deleteNote: async (applicationID, noteID) => {
         return await note.deleteOne({applicationID, _id: noteID});
+    },
+    getNoteWithTemplate: async (hbs) => {
+        let noteObject = await note.findOne().lean()
+        noteObject.template = await hbs.renderView(`views/note.handlebars`, {
+            layout: false,
+            note: noteObject
+        });
+        return noteObject
     }
 }
