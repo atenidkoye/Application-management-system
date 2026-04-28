@@ -21,7 +21,8 @@ const authRouter = require("./routes/authRoutes");
 // Models
 const Candidate = require("./models/Candidate");
 const Application = require("./models/Application");
-const {getNoteWithTemplate} = require("./models/note");
+const {getNotesWithTemplate, Note} = require("./models/note");
+const user = require("./models/user");
 
 
 // Config
@@ -39,13 +40,15 @@ app.use(express.static("public"))
 
 
 const hbs = exhbs.create({
-    defaultLayout: "main"
+    defaultLayout: "main",
+    partialsDir: __dirname + "/views/partials"
 });
 
 hbs.helpers = {
     isSame: (a, b) => a == b,
     isEditable: (a, b) => (a == b) ? "editable" : "readOnly",
     getStarState: (index, total) => (index <= total) ? "on" : "off",
+    isChecked: (a, b) => (a == b) ? "checked" : "",
     showNote: (note) => hbs.handlebars.compile(note.template)()
 }
 
@@ -88,6 +91,18 @@ app.get("/dashboard", auth, async(req, res, next) => {
         next(err);
     }
 });
+
+app.get("/test", async (req, res) => {
+    let id = "69f06d7d3e90504c8165dc6f"
+    let application = await Application.findOne({_id: id}).lean()
+    let user = res.locals.user;
+    let count = await Note.findOne({applicationID: application._id, authorID: user.id}).countDocuments()
+    res.render("application", {
+        noUserNote: count == 0,
+        application,
+        notes: await getNotesWithTemplate(hbs, application._id, user)
+    })
+})
 
 // Error handler
 app.use(errorHandler);

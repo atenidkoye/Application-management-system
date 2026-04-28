@@ -1,0 +1,166 @@
+<div class="application">
+
+    <style>
+        .application {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+        }
+
+        .application-container {
+            grid-column: span 2;
+        }
+
+        .application-info {
+            width: 90%;
+            height: 70vh;
+            margin: 50px auto;
+            margin-bottom: 10px;
+            border: 2px solid gray;
+            border-radius: 10px;
+            padding: 10px;
+            background-color: white;
+        }
+
+        .legend {
+            display: flex;
+            justify-content: space-evenly;
+            width: 90%;
+            margin: 0 auto;
+            gap: 10px;
+        }
+
+        .legend input {
+            display: none;
+        }
+
+        .row {
+            display: flex;
+            align-items: center;
+        }
+    
+        .status {
+            display: flex;
+            width: 75px;
+            aspect-ratio: 1/1;
+            border-radius: 50%;
+            background-color: black;
+            box-shadow: 2px 2px black, -2px -2px black, -2px 2px black, 2px -2px black;
+            position: relative;
+            align-items: center;
+        }
+
+        .legend .status {
+            opacity: 0.7;
+        }
+        
+        .status p {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 14px;
+            text-transform: capitalize;
+        }
+
+        .status p::first-letter{
+            font-size: 20px;    
+        }
+
+        .applied {background-color: rgb(232, 232, 44);}
+        .interview {background-color: rgb(131, 131, 255);}
+        .evaluation {background-color: rgb(220, 150, 22);}
+        .accepted {background-color: rgb(42, 205, 42);}
+        .rejected {background-color: rgb(226, 68, 68);}
+
+        .status:has(input:checked) {
+            opacity: 1;
+        }
+
+        .name {
+            width: 100%;
+            text-align: center;
+            font-size: 26px;
+        }
+
+        .body {
+            margin-top: 15px;
+        }
+
+        .body p {
+            font-size: 20px;
+        }
+
+        #id {
+            display: none;
+        }
+
+        .application-notes {
+            margin: 20px;
+            grid-column: span 3;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            overflow-y: scroll;
+            overflow-x: hidden;
+        }
+    </style>
+
+    <div class="application-container">
+        <div class="application-info">
+            <div class="row">
+                <span class="status {{application.status}}" id="status"><p>{{application.status}}</p></span>
+                <h2 class="name">{{application.name}}</h2>
+            </div>
+            <div class="body">
+                <p class="position">Applying to {{application.position}}</p>
+                <p class="date">Applied on {{application.applied_at}}</p>
+                <p id="id">{{application._id}}</p>
+            </div>
+        </div>
+        <form class="legend">
+            <label class="status applied"><p>applied</p>
+                <input {{isChecked application.status "applied"}} value="applied" type="radio" name="status" class="status-input"></input>
+            </label>
+            <label class="status interview"><p>interview</p>
+                <input {{isChecked application.status "interview"}} value="interview" type="radio" name="status" class="status-input"></input>
+            </label>
+            <label class="status evaluation"><p>evaluation</p>
+                <input {{isChecked application.status "evaluation"}} value="evaluation" type="radio" name="status" class="status-input"></input>
+            </label>
+            <label class="status accepted"><p>accepted</p>
+                <input {{isChecked application.status "accepted"}} value="accepted" type="radio" name="status" class="status-input"></input>
+            </label>
+            <label class="status rejected"><p>rejected</p>
+                <input {{isChecked application.status "rejected"}} value="rejected" type="radio" name="status" class="status-input"></input>
+            </label>
+        </form>
+    </div>
+    <div class="application-notes">
+        {{#if noUserNote}}
+        {{> note}}
+        {{/if}}
+        {{#each notes}}
+            {{{ showNote this }}}
+        {{/each}}
+    </div>
+    <script>
+        onload = () => {
+            const inputs = Array.from(document.getElementsByClassName("status-input"));
+            const status = document.getElementById("status");
+            const id = document.getElementById("id").innerText;
+            inputs.forEach(input => {
+                input.addEventListener("change", (event) => {
+                    status.classList = []
+                    status.classList.add("status");
+                    status.classList.add(input.value);
+                    status.innerHTML = `<p>${input.value}</p>`;
+                    fetch(`/api/applications/status/${id}`, {
+                        method: "PATCH",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify({"status": input.value})
+                    })
+                })
+            })
+        }
+    </script>
+</div>

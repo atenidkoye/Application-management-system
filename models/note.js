@@ -38,13 +38,24 @@ module.exports = {
     deleteNote: async (applicationID, authorID) => {
         return await note.deleteOne({applicationID, authorID});
     },
-    getNoteWithTemplate: async (hbs, user) => {
-        let noteObject = await note.findOne().lean()
-        noteObject.template = await hbs.renderView(`views/note.handlebars`, {
-            layout: false,
-            note: noteObject,
-            user
-        });
-        return noteObject
+    getNotesWithTemplate: async (hbs, applicationID, user) => {
+        let notes = await note.find({applicationID}).lean().sort({});
+        let userNoteIndex = 0;
+        for (let index in notes) {
+            notes[index].template = await hbs.renderView(`views/note.handlebars`, {
+                layout: false,
+                note: notes[index],
+                user
+            })
+            if (notes[index].userID == user.id) {
+                userNoteIndex = index;
+            }
+        }
+
+        let userNote = notes[userNoteIndex];
+        notes.splice(userNoteIndex, 1);
+        notes.unshift(userNote);
+
+        return notes;
     }
 }

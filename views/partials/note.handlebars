@@ -1,4 +1,4 @@
-<form class="note-container {{isEditable user.id note.authorID}}">
+<form class="note-container editable">
     <style>
         .note-container {
             width: 250px;
@@ -72,17 +72,15 @@
         
     </style>
 
-    <textarea class="note-text" placeholder="Thoughts about the application..." {{isEditable user.id note.authorID}}>{{note.text}}</textarea>
+    <textarea class="note-text" placeholder="Thoughts about the application...">{{note.text}}</textarea>
     <div class="rating">
-        <span class="star {{isEditable user.id note.authorID}} {{getStarState 1 note.rating}}">★</span>
-        <span class="star {{isEditable user.id note.authorID}} {{getStarState 2 note.rating}}">★</span>
-        <span class="star {{isEditable user.id note.authorID}} {{getStarState 3 note.rating}}">★</span>
-        <span class="star {{isEditable user.id note.authorID}} {{getStarState 4 note.rating}}">★</span>
-        <span class="star {{isEditable user.id note.authorID}} {{getStarState 5 note.rating}}">★</span>
+        <span class="star editable {{getStarState 1 note.rating}}">★</span>
+        <span class="star editable {{getStarState 2 note.rating}}">★</span>
+        <span class="star editable {{getStarState 3 note.rating}}">★</span>
+        <span class="star editable {{getStarState 4 note.rating}}">★</span>
+        <span class="star editable {{getStarState 5 note.rating}}">★</span>
     </div>
-    {{#if (isSame user.id note.authorID)}}
-    <button class="submit-button">Update note</button>
-    {{/if}}
+    <button class="submit-button">Share thoughts</button>
 
     <script>
 
