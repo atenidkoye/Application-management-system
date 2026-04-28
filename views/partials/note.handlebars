@@ -1,4 +1,4 @@
-<form class="note-container editable">
+<form id="new-note-form" class="note-container editable" method="POST">
     <style>
         .note-container {
             width: 250px;
@@ -72,38 +72,13 @@
         
     </style>
 
-    <textarea class="note-text" placeholder="Thoughts about the application...">{{note.text}}</textarea>
+    <textarea class="note-text" placeholder="Thoughts about the application..."></textarea>
     <div class="rating">
-        <span class="star editable {{getStarState 1 note.rating}}">★</span>
-        <span class="star editable {{getStarState 2 note.rating}}">★</span>
-        <span class="star editable {{getStarState 3 note.rating}}">★</span>
-        <span class="star editable {{getStarState 4 note.rating}}">★</span>
-        <span class="star editable {{getStarState 5 note.rating}}">★</span>
+        <span class="star editable">★</span>
+        <span class="star editable">★</span>
+        <span class="star editable">★</span>
+        <span class="star editable">★</span>
+        <span class="star editable">★</span>
     </div>
-    <button class="submit-button">Share thoughts</button>
-
-    <script>
-
-        const turnOff = (star) => star.classList.remove("on");
-        const turnOn = (star) => star.classList.add("on");
-
-        const hoverOff = (star) => star.classList.remove("hover");
-        const hoverOn = (star) => star.classList.add("hover");
-
-        onload = () => {
-            const stars = Array.from(document.getElementsByClassName("star"));
-            stars.forEach((star, index) => {
-                if (star.classList.contains("readOnly")) return
-                star.addEventListener("click", () => {
-                    stars.forEach(turnOff);
-                    stars.slice(0, index + 1).forEach(turnOn);
-                })
-                star.addEventListener("mouseover", () => {
-                    stars.forEach(hoverOff);
-                    stars.slice(0, index + 1).forEach(hoverOn);
-                })
-                star.addEventListener("mouseout", () => stars.forEach(hoverOff))
-            })
-        }
-    </script>
+    <button class="submit-button" type="submit">Share thoughts</button>
 </form>

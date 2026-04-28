@@ -18,7 +18,7 @@ noteRouter.get("/:applicationID/notes", async (req, res) => {
 noteRouter.post("/:applicationID/notes", async (req, res) => {
     const id = req.params.applicationID;
     const body = req.body;
-    const note = await saveNote(id, body.text, Number.parseInt(body.rating));
+    const note = await saveNote(id, body.authorID, body.text, Number.parseInt(body.rating));
     if (note) {
         res.status(200).json(note);
     } else {

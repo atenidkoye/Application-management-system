@@ -32,6 +32,10 @@ main {
     height: 50%;
 }
 
+#user-id {
+    display: none;
+}
+
 .user-info a {
     border: 1px solid gray;
     border-radius: 5px;

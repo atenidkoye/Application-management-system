@@ -83,29 +83,4 @@
     {{#if (isSame user.id note.authorID)}}
     <button class="submit-button">Update note</button>
     {{/if}}
-
-    <script>
-
-        const turnOff = (star) => star.classList.remove("on");
-        const turnOn = (star) => star.classList.add("on");
-
-        const hoverOff = (star) => star.classList.remove("hover");
-        const hoverOn = (star) => star.classList.add("hover");
-
-        onload = () => {
-            const stars = Array.from(document.getElementsByClassName("star"));
-            stars.forEach((star, index) => {
-                if (star.classList.contains("readOnly")) return
-                star.addEventListener("click", () => {
-                    stars.forEach(turnOff);
-                    stars.slice(0, index + 1).forEach(turnOn);
-                })
-                star.addEventListener("mouseover", () => {
-                    stars.forEach(hoverOff);
-                    stars.slice(0, index + 1).forEach(hoverOn);
-                })
-                star.addEventListener("mouseout", () => stars.forEach(hoverOff))
-            })
-        }
-    </script>
 </form>

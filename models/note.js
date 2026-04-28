@@ -51,11 +51,9 @@ module.exports = {
                 userNoteIndex = index;
             }
         }
-
-        let userNote = notes[userNoteIndex];
-        notes.splice(userNoteIndex, 1);
-        notes.unshift(userNote);
-
+        
+        let userNote = notes.splice(userNoteIndex - 1, 1)[0];
+        if (userNote) notes.unshift(userNote);
         return notes;
     }
 }

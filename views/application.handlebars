@@ -1,7 +1,7 @@
-<div class="application">
+<div id="application">
 
     <style>
-        .application {
+        #application {
             display: grid;
             grid-template-columns: repeat(5, 1fr);
         }
@@ -89,10 +89,6 @@
             font-size: 20px;
         }
 
-        #id {
-            display: none;
-        }
-
         .application-notes {
             margin: 20px;
             grid-column: span 3;
@@ -112,7 +108,6 @@
             <div class="body">
                 <p class="position">Applying to {{application.position}}</p>
                 <p class="date">Applied on {{application.applied_at}}</p>
-                <p id="id">{{application._id}}</p>
             </div>
         </div>
         <form class="legend">
@@ -141,26 +136,4 @@
             {{{ showNote this }}}
         {{/each}}
     </div>
-    <script>
-        onload = () => {
-            const inputs = Array.from(document.getElementsByClassName("status-input"));
-            const status = document.getElementById("status");
-            const id = document.getElementById("id").innerText;
-            inputs.forEach(input => {
-                input.addEventListener("change", (event) => {
-                    status.classList = []
-                    status.classList.add("status");
-                    status.classList.add(input.value);
-                    status.innerHTML = `<p>${input.value}</p>`;
-                    fetch(`/api/applications/status/${id}`, {
-                        method: "PATCH",
-                        headers: {
-                            "Content-Type": "application/json",
-                        },
-                        body: JSON.stringify({"status": input.value})
-                    })
-                })
-            })
-        }
-    </script>
 </div>
