@@ -1,8 +1,8 @@
-<form class="note-container">
+<form class="note-container {{isEditable user.id note.authorID}}">
     <style>
         .note-container {
             width: 250px;
-            height: 300px;
+            height: 250px;
             background-color: rgb(255, 255, 255);
             padding: 10px;
             box-sizing: border-box;
@@ -11,12 +11,25 @@
             box-shadow: 1px 1px 2px 2px rgba(0, 0, 0, 0.263);
         }
 
+        form.editable {
+            height: 300px;
+        }
+
         .note-text {
             font-size: 18px;
             height: 200px;
             width: 100%;
             resize: none;
             padding: 5px;
+        }
+
+        .readOnly .note-text {
+            cursor: default;
+            outline: none;
+        }
+
+        .editable .note-text:focus {
+            outline: 3px solid blue;
         }
 
         .rating {
@@ -28,8 +41,15 @@
 
         .star {
             -webkit-text-stroke: 1px black;
-            cursor: pointer;
             padding: 0 5px;
+        }
+
+        span.readOnly {
+            cursor: default;
+        }
+
+        span.editable {
+            cursor: pointer;
         }
 
         .off {
@@ -52,20 +72,22 @@
         
     </style>
 
-    <textarea class="note-text" placeholder="Thoughts about the application...">{{note.text}}</textarea>
+    <textarea class="note-text" placeholder="Thoughts about the application..." {{isEditable user.id note.authorID}}>{{note.text}}</textarea>
     <div class="rating">
-        <span class="star {{getStarState 1 note.rating}}">★</span>
-        <span class="star {{getStarState 2 note.rating}}">★</span>
-        <span class="star {{getStarState 3 note.rating}}">★</span>
-        <span class="star {{getStarState 4 note.rating}}">★</span>
-        <span class="star {{getStarState 5 note.rating}}">★</span>
+        <span class="star {{isEditable user.id note.authorID}} {{getStarState 1 note.rating}}">★</span>
+        <span class="star {{isEditable user.id note.authorID}} {{getStarState 2 note.rating}}">★</span>
+        <span class="star {{isEditable user.id note.authorID}} {{getStarState 3 note.rating}}">★</span>
+        <span class="star {{isEditable user.id note.authorID}} {{getStarState 4 note.rating}}">★</span>
+        <span class="star {{isEditable user.id note.authorID}} {{getStarState 5 note.rating}}">★</span>
     </div>
+    {{#if (isSame user.id note.authorID)}}
     <button class="submit-button">
         {{#if note.text}}
         Update note
         {{else}}
         Share thoughts
         {{/if}}
+    {{/if}}
     </button>
 
     <script>
@@ -79,6 +101,7 @@
         onload = () => {
             const stars = Array.from(document.getElementsByClassName("star"));
             stars.forEach((star, index) => {
+                if (star.classList.contains("readOnly")) return
                 star.addEventListener("click", () => {
                     stars.forEach(turnOff);
                     stars.slice(0, index + 1).forEach(turnOn);

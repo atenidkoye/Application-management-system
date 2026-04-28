@@ -38,14 +38,19 @@ app.use(express.urlencoded({extended: true}));
 app.use(express.static("public"))
 
 
+const hbs = exhbs.create({
+    defaultLayout: "main"
+});
+
+hbs.helpers = {
+    isSame: (a, b) => a == b,
+    isEditable: (a, b) => (a == b) ? "editable" : "readOnly",
+    getStarState: (index, total) => (index <= total) ? "on" : "off",
+    showNote: (note) => hbs.handlebars.compile(note.template)()
+}
+
 // Setting up handlebars
-app.engine("handlebars", exhbs.engine({
-    defaultLayout: "main",
-    helpers: {
-        getStarState: (index, total) => (index <= total) ? "on" : "off",
-        showNote: (note) => hbs.handlebars.compile(note.template)()
-    }
-}));
+app.engine("handlebars", hbs.engine);
 app.set("view engine", "handlebars");
 
 //Routes
