@@ -18,9 +18,14 @@ noteRouter.get("/:applicationID/notes", async (req, res) => {
 noteRouter.post("/:applicationID/notes", async (req, res) => {
     const id = req.params.applicationID;
     const body = req.body;
+    const url = req.originalUrl.replace("/api", "").replace("/notes", "");
     const note = await saveNote(id, body.authorID, body.text, Number.parseInt(body.rating));
     if (note) {
-        res.status(200).json(note);
+        if (url.includes("/applications/")) {
+            res.redirect(url);
+        } else {
+            res.status(200).json(note);
+        }
     } else {
         res.status(500).json({msg: "Server error"});
     }

@@ -92,11 +92,10 @@ app.get("/dashboard", auth, async(req, res, next) => {
     }
 });
 
-app.get("/application/:id", async (req, res) => {
+app.get("/applications/:id", async (req, res) => {
     let id = req.params.id;
     let application = await Application.findOne({_id: id}).lean()
     let user = res.locals.user;
-    console.log(application._id, user.id)
     let count = await Note.findOne({applicationID: application._id, authorID: user.id}).countDocuments()
     res.render("application", {
         noUserNote: count == 0,
