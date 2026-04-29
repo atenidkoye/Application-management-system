@@ -79,6 +79,7 @@ app.get("/", (req, res) => {
 app.get("/dashboard", auth, async(req, res, next) => {
     try{
         const totalCandidates = await Candidate.countDocuments();
+        const totalApplications = await Application.countDocuments();
 
         const stats = await Application.aggregate([
             {$group: { _id: "$status", count: {$sum: 1}}}
@@ -86,6 +87,7 @@ app.get("/dashboard", auth, async(req, res, next) => {
 
         res.render("dashboard", {
             totalCandidates,
+            totalApplications,
             statusStats: stats,
             isDashboard: true
         });

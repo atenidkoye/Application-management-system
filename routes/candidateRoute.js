@@ -6,7 +6,7 @@ const validate = require("../middleware/validate");
 
 
 // View all Candidates
-router.get("/view", auth, ctrl.getAllCandidates);
+router.get("/", auth, ctrl.getAllCandidates);
 
 //Add Candidates
 router.get("/add", auth, ctrl.addCandidate);
