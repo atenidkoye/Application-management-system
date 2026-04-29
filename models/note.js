@@ -30,7 +30,7 @@ module.exports = {
         }).save();
     },
     updateNote: async (applicationID, authorID, text, rating) => {
-        return await note.updateOne(
+        return await note.findOneAndUpdate(
             {applicationID, authorID}, 
             {text, rating, updatedAt: new Date()}
         )

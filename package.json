@@ -21,6 +21,7 @@
   "homepage": "https://github.com/atenidkoye/Application-management-system#readme",
   "dependencies": {
     "cookie-parser": "^1.4.7",
+    "cors": "^2.8.6",
     "dotenv": "^17.4.2",
     "express": "^5.2.1",
     "express-handlebars": "^9.0.1",

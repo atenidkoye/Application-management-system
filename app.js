@@ -3,6 +3,7 @@ const express = require("express");
 const exhbs = require ("express-handlebars");
 const mongoose = require("mongoose");
 const cookieParser = require("cookie-parser");
+const cors = require("cors");
 
 
 // Middleware
@@ -33,6 +34,7 @@ const app = express();
 
 // Middlewares
 app.use(cookieParser());
+app.use(cors());
 app.use(attachUser);
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));

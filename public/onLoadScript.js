@@ -49,4 +49,27 @@ onload = () => {
             newNoteForm.submit();
         }
     }
+
+    const updateNoteForm = document.getElementById("update-note-form");   
+    if (updateNoteForm) {
+        const id = window.location.href.split("/").pop();
+        const authorID = document.getElementById("user-id").innerText;
+        const url = `http://localhost:5000/api/applications/${id}/notes/${authorID}`;
+        updateNoteForm.onsubmit = (event) => {
+            let text = updateNoteForm.elements[0].value;
+            event.preventDefault();
+            let rated = updateNoteForm.getElementsByClassName("on").length;
+            updateNoteForm.innerHTML += `<input type="hidden" name="rating" value=${rated}>`;
+            updateNoteForm.innerHTML += `<input type="hidden" name="text" value="${text}">`;
+            const formData = new FormData(updateNoteForm);
+            const body = JSON.stringify(Object.fromEntries(formData));
+            fetch(url, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body
+            }).then(response => location.reload())
+        }
+    }
 }

@@ -33,11 +33,12 @@ noteRouter.post("/:applicationID/notes", async (req, res) => {
 
 
 // Update a note for application
-noteRouter.put("/:applicationID/notes/:id", async (req, res) => {
+noteRouter.put("/:applicationID/notes/:authorID", async (req, res) => {
     const applicationID = req.params.applicationID;
-    const id = req.params.id;
+    const authorID = req.params.authorID;
     const body = req.body;
-    const result = await updateNote(applicationID, id, body.text, Number.parseInt(body.rating));
+    const url = req.originalUrl.replace("/api", "").split("/notes")[0];
+    const result = await updateNote(applicationID, authorID, body.text, Number.parseInt(body.rating));
     if (result.acknowledged) {
         res.status(204).send();
     } else {
@@ -47,10 +48,10 @@ noteRouter.put("/:applicationID/notes/:id", async (req, res) => {
 
 
 // Delete a note for application
-noteRouter.delete("/:applicationID/notes/:id", async (req, res) => {
+noteRouter.delete("/:applicationID/notes/:authorID", async (req, res) => {
     const applicationID = req.params.applicationID;
-    const id = req.params.id;
-    const result = await deleteNote(applicationID, id);
+    const authorID = req.params.authorID;
+    const result = await deleteNote(applicationID, authorID);
     if (result.acknowledged) {
         res.status(200).send();
     } else {

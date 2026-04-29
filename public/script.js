@@ -37,3 +37,11 @@ const noteLoaded = (parent) => {
         star.addEventListener("mouseout", () => stars.forEach(hoverOff))
     })
 }
+
+const deleteNote = (applicationID, authorID) => {
+    const url = `http://localhost:5000/api/applications/${applicationID}/notes/${authorID}`;
+    
+    fetch(url, {
+        method: "DELETE"
+    }).then(response => location.reload());
+}

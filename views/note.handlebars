@@ -1,4 +1,4 @@
-<form class="note-container {{isEditable user.id note.authorID}}">
+<form id="update-note-form" class="note-container {{isEditable user.id note.authorID}}">
     <style>
         .note-container {
             width: 250px;
@@ -64,15 +64,37 @@
             color: yellow;
         }
 
+        .button-row {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+        }
+
         .submit-button {
+            grid-column: span 2;
             width: 100%;
             font-size: 20px;
             padding: 5px;
+            border-radius: 5px;
+        }
+
+        .delete-button {
+            background-color: rgb(255, 100, 100);
+            border: 1px solid rgb(255, 50, 50);
+            border-radius: 5px;
+        }
+
+        .delete-button:hover {
+            background-color: rgb(255, 50, 50);
         }
         
     </style>
 
+    {{#if (isSame user.id note.authorID)}}
     <textarea class="note-text" placeholder="Thoughts about the application..." {{isEditable user.id note.authorID}}>{{note.text}}</textarea>
+    {{else}}
+    <p class="note-text">{{note.text}}</p>
+    {{/if}}
     <div class="rating">
         <span class="star {{isEditable user.id note.authorID}} {{getStarState 1 note.rating}}">★</span>
         <span class="star {{isEditable user.id note.authorID}} {{getStarState 2 note.rating}}">★</span>
@@ -81,6 +103,9 @@
         <span class="star {{isEditable user.id note.authorID}} {{getStarState 5 note.rating}}">★</span>
     </div>
     {{#if (isSame user.id note.authorID)}}
-    <button class="submit-button">Update note</button>
+    <div class="button-row">
+        <button type="submit" class="submit-button">Update note</button>
+        <button type="button" class="delete-button" onclick="deleteNote('{{note.applicationID}}', '{{note.authorID}}')">🗑️</button>
+    </div>
     {{/if}}
 </form>
