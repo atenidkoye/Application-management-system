@@ -96,6 +96,11 @@ app.get("/dashboard", auth, async(req, res, next) => {
     }
 });
 
+app.get("/applications", async (req, res) => {
+    const applications = await Application.find().lean();
+    res.render("applications", {applications});
+})
+
 app.get("/applications/:id", async (req, res) => {
     let id = req.params.id;
     let application = await Application.findOne({_id: id}).lean()
