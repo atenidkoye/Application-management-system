@@ -44,8 +44,9 @@
     {{#each applications}}
     <a class="application" href="/applications/{{_id}}">
         <div class="inner-container {{status}}">
-            <h2>{{name}}</h2>
+            <h2>{{getCandidateName ../candidateNames candidateID}}'s application</h2>
             <p>Status: {{status}}</p>
+            <p>Applying to: {{position}}</p>
         </div>
     </a>
     {{/each}}

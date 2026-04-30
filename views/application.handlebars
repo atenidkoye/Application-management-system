@@ -87,6 +87,8 @@
 
         .body p {
             font-size: 20px;
+            padding-left: 20px;
+            margin-top: 25px;
         }
 
         .application-notes {
@@ -103,11 +105,13 @@
         <div class="application-info">
             <div class="row">
                 <span class="status {{application.status}}" id="status"><p>{{application.status}}</p></span>
-                <h2 class="name">{{application.name}}</h2>
+                <h2 class="name">{{candidateName.name}}'s application</h2>
             </div>
             <div class="body">
                 <p class="position">Applying to {{application.position}}</p>
-                <p class="date">Applied on {{application.applied_at}}</p>
+                <p class="pay">Expected pay: {{application.minimalPay}}€ - {{application.maximalPay}}€</p>
+                <p class="skills">Skills: <span>{{application.skills}}</span></p>
+                <p class="experience">Experience: <span>{{application.experience}}</span></p>
             </div>
         </div>
         <form class="legend">

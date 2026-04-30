@@ -12,7 +12,7 @@ router.post("/candidate", async (req, res) => {
         about: req.body["about"],
         createdAt: new Date()
     })
-    
+
     res.redirect(307, `/api/apply/application/${candidate.id}`);
 })
 
@@ -24,7 +24,7 @@ router.post("/application/:id", async (req, res) => {
         position: req.body["position"],
         status: "applied",
         startDate: req.body["start-date"],
-        minimalPay: req.body["min-play"],
+        minimalPay: req.body["min-pay"],
         maximalPay: req.body["max-pay"],
         skills: req.body["skills"],
         experience: req.body["experience"]

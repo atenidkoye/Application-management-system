@@ -52,6 +52,7 @@ hbs.helpers = {
     isEditable: (a, b) => (a == b) ? "editable" : "readOnly",
     getStarState: (index, total) => (index <= total) ? "on" : "off",
     isChecked: (a, b) => (a == b) ? "checked" : "",
+    getCandidateName: (candidateNames, candidateID) => candidateNames.filter(candidate => candidate._id == candidateID)[0].name,
     showNote: (note) => hbs.handlebars.compile(note.template)()
 }
 
@@ -112,17 +113,20 @@ app.get("/apply", async (req, res) => {
 
 app.get("/applications", async (req, res) => {
     const applications = await Application.find().lean();
-    res.render("applications", {applications});
+    const candidateNames = await Candidate.find({}, {name:1}).lean();
+    res.render("applications", {applications, candidateNames});
 })
 
 app.get("/applications/:id", async (req, res) => {
-    let id = req.params.id;
-    let application = await Application.findOne({_id: id}).lean()
-    let user = res.locals.user;
-    let count = await Note.findOne({applicationID: application._id, authorID: user.id}).countDocuments()
+    const id = req.params.id;
+    const application = await Application.findOne({_id: id}).lean();
+    const candidateName = await Candidate.findOne({_id: application.candidateID}, {name: 1}).lean();
+    const user = res.locals.user;
+    const count = await Note.findOne({applicationID: application._id, authorID: user.id}).countDocuments()
     res.render("application", {
         noUserNote: count == 0,
         application,
+        candidateName,
         notes: await getNotesWithTemplate(hbs, application._id, user)
     })
 })
