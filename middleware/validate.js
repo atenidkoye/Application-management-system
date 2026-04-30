@@ -1,7 +1,7 @@
 module.exports =(schema) => {
     return (req, res, next) => {
         const {error, value} = schema.validate(req.body, {
-            stripUknown: true
+            stripUnknown: true
         });
 
         if (error) {

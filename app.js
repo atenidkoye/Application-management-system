@@ -33,8 +33,8 @@ app.engine("handlebars", exhbs.engine({
 app.set("view engine", "handlebars");
 
 //Routes
-app.use("/api/applications", applicationRouter);
-app.use("/api/notes", noteRouter);
+app.use("/applications", applicationRouter);
+app.use("/notes", noteRouter);
 app.use("/candidates", require("./routes/candidateRoutes"));
 app.use("/auth", require("./routes/authRoutes"));
 
