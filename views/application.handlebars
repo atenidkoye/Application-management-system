@@ -1,3 +1,4 @@
+<a href="/applications" class="back">BACK TO APPLICATIONS</a>
 <div id="application">
 
     <style>
@@ -19,6 +20,8 @@
             border-radius: 10px;
             padding: 10px;
             background-color: white;
+            position: relative;
+            overflow: auto;
         }
 
         .legend {
@@ -27,6 +30,7 @@
             width: 90%;
             margin: 0 auto;
             gap: 10px;
+            margin-top: 15px;
         }
 
         .legend input {
@@ -96,8 +100,14 @@
             grid-column: span 3;
             display: grid;
             grid-template-columns: 1fr 1fr;
-            overflow-y: scroll;
+            overflow-y: auto;
             overflow-x: hidden;
+        }
+
+        a.candidate {
+            padding: 5px;
+            margin: 20px;
+            font-size: 18px;
         }
     </style>
 
@@ -114,6 +124,7 @@
                 <p class="experience">Experience: <span>{{application.experience}}</span></p>
             </div>
         </div>
+            <a class="candidate" href="/candidates/{{application.candidateID}}">Go to the candidate</a>
         <form class="legend">
             <label class="status applied"><p>applied</p>
                 <input {{isChecked application.status "applied"}} value="applied" type="radio" name="status" class="status-input"></input>

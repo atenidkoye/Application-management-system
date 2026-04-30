@@ -70,3 +70,22 @@ main {
 a:visited {
     color: blue;
 }
+
+.back {
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    border: 1px solid gray;
+    border-radius: 5px;
+    padding: 0 20px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    text-decoration: none;
+}
+
+.back:hover {
+    background-color: gray;
+}

@@ -54,7 +54,7 @@ onload = () => {
     if (updateNoteForm) {
         const id = window.location.href.split("/").pop();
         const authorID = document.getElementById("user-id").innerText;
-        const url = `http://localhost:5000/api/applications/${id}/notes/${authorID}`;
+        const url = `/api/applications/${id}/notes/${authorID}`;
         updateNoteForm.onsubmit = (event) => {
             let text = updateNoteForm.elements[0].value;
             event.preventDefault();

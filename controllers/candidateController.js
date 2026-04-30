@@ -1,11 +1,12 @@
 const Candidate = require("../models/Candidate");
+const Application = require("../models/Application");
 const sendEmail = require("../utils/nodemailer");
 
 
 // Get All Candidates
 exports.getAllCandidates = async(req, res, next) => {
     try {
-        const candidates = await Candidate.find();
+        const candidates = await Candidate.find().lean();
         res.render("candidates", { candidates });
     } catch (err) {
         next(err);
@@ -15,14 +16,15 @@ exports.getAllCandidates = async(req, res, next) => {
 // Get One Candidate
 exports.getOneCandidate = async (req, res, next) => {
     try {
-        const candidate = await Candidate.findById(req.params.id);
+        const candidate = await Candidate.findById(req.params.id).lean();
+        const applicationID = (await Application.findOne({candidateID: req.params.id}, {id: 1}).lean())._id;
 
         if (!candidate) {
             req.flash("error", "Candidate not found");
             return res.redirect("/candidates/view")
         }
 
-        res.render("candidateDetails", { candidate });
+        res.render("candidate", { candidate, applicationID });
     }catch (err){
         next(err);
     }
