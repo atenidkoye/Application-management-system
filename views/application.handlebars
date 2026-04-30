@@ -21,6 +21,7 @@
             padding: 10px;
             background-color: white;
             position: relative;
+            overflow: auto;
         }
 
         .legend {
@@ -29,6 +30,7 @@
             width: 90%;
             margin: 0 auto;
             gap: 10px;
+            margin-top: 15px;
         }
 
         .legend input {
@@ -103,9 +105,8 @@
         }
 
         a.candidate {
-            position: absolute;
-            bottom: 10px;
-            left: 10px;
+            padding: 5px;
+            margin: 20px;
             font-size: 18px;
         }
     </style>
@@ -122,8 +123,8 @@
                 <p class="skills">Skills: <span>{{application.skills}}</span></p>
                 <p class="experience">Experience: <span>{{application.experience}}</span></p>
             </div>
-            <a class="candidate" href="/candidates/{{application.candidateID}}">Go to the candidate</a>
         </div>
+            <a class="candidate" href="/candidates/{{application.candidateID}}">Go to the candidate</a>
         <form class="legend">
             <label class="status applied"><p>applied</p>
                 <input {{isChecked application.status "applied"}} value="applied" type="radio" name="status" class="status-input"></input>
