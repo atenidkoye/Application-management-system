@@ -17,6 +17,7 @@ const noteRouter = require("./routes/note");
 const applicationRouter = require("./routes/applicationRoute");
 const candidateRouter = require("./routes/candidateRoute");
 const authRouter = require("./routes/authRoutes");
+const applyRouter = require("./routes/applyRoutes");
 
 
 // Models
@@ -61,6 +62,7 @@ app.set("view engine", "handlebars");
 //Routes
 app.use("/api/applications", applicationRouter);
 app.use("/api/applications", noteRouter);
+app.use("/api/apply", applyRouter);
 app.use("/candidates", candidateRouter);
 app.use("/auth", authRouter);
 
@@ -95,6 +97,18 @@ app.get("/dashboard", auth, async(req, res, next) => {
         next(err);
     }
 });
+
+// Page for candidates to apply
+app.get("/apply", async (req, res) => {
+    res.render("apply", {
+        layout: false,
+        positions: [
+            "Cashier",
+            "Tester",
+            "Admin"
+        ]
+    })
+})
 
 app.get("/applications", async (req, res) => {
     const applications = await Application.find().lean();

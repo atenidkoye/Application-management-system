@@ -1,11 +1,14 @@
 const mongoose = require('mongoose');
 
 const applicationSchema = new mongoose.Schema({
-    name: String,
+    candidateID: String,
     position: String,
     status: String,
-    source: String,
-    applied_at: Date
+    startDate: Date,
+    minimalPay: Number,
+    maximalPay: Number,
+    skills: String,
+    experience: String
 });
 
 module.exports = mongoose.model("Application", applicationSchema);

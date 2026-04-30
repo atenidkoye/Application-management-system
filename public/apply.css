@@ -1,0 +1,91 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    overflow: hidden;
+    background-color: rgb(215, 217, 231);
+}
+
+form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    position: relative;
+    height: 90vh;
+}
+
+h1 {
+    text-align: center;
+}
+
+.candidate-form, .application-form {
+    padding: 20px;
+}
+
+.candidate-form {
+    border-right: 2px solid gray;
+}
+
+.application-form {
+    border-left: 2px solid gray;
+}
+
+button {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 0;
+    padding: 10px 20px;
+    font-size: 22px;
+    border-radius: 10px;
+}
+
+.inputs {
+    display: flex;
+    flex-direction: column;
+    padding: 20px 0;
+    gap: 25px;
+    margin: 0 50px;
+}
+
+.row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 50px;
+}
+
+.pair {
+    display: flex;
+    flex-direction: column;
+}
+
+input {
+    padding: 10px 5px;
+    font-size: 18px;
+    border-radius: 5px;
+}
+
+label {
+    font-size: 18px;
+    margin-left: 5px;
+}
+
+textarea {
+    height: 250px;
+    resize: none;
+    padding: 10px 5px;
+    font-size: 16px;
+    border-radius: 5px;
+}
+
+.application-form textarea {
+    height: 150px;
+}
+
+select {
+    padding: 10px 5px;
+    font-size: 18px;
+    border-radius: 5px;
+}

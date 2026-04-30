@@ -20,7 +20,7 @@ onload = () => {
                 status.classList.add("status");
                 status.classList.add(input.value);
                 status.innerHTML = `<p>${input.value}</p>`;
-                fetch(`/api/applications/status/${id}`, {
+                fetch(`/api/applications/${id}/status`, {
                     method: "PATCH",
                     headers: {
                         "Content-Type": "application/json",

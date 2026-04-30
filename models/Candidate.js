@@ -4,9 +4,10 @@ const candidateSchema = new mongoose.Schema({
     name: String,
     email: String,
     phone: String,
-    experience_years: Number,
-    primary_skill: String,
-    created_at: Date
+    age: Number,
+    country: String,
+    about: String,
+    createdAt: Date
 });
 
 module.exports = mongoose.model("Candidate", candidateSchema);

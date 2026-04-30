@@ -17,6 +17,7 @@ main {
 .left {
     grid-column: span 8;
     background-color: rgb(215, 217, 231);
+    position: relative;
 }
 
 .right {

@@ -30,10 +30,10 @@ applicationRouter.get("/:id", async (req, res) => {
 });
 
 applicationRouter.post("/", async (req, res) => {
-    if (req.body.name && req.body.position && req.body.status && req.body.source && req.body.applied_at) {
+    if (req.body.candidateID && req.body.position && req.body.status && req.body.source && req.body.applied_at) {
         if (statusList.includes(req.body.status)) {
             const application = new Application({
-                name: req.body.name,
+                candidateID: req.body.candidateID,
                 position: req.body.position,
                 status: req.body.status,
                 source: req.body.source,
@@ -56,7 +56,7 @@ applicationRouter.post("/", async (req, res) => {
     }
 );
 
-applicationRouter.patch("/status/:id", async (req, res) => {
+applicationRouter.patch("/:id/status", async (req, res) => {
     const id = req.params.id;
     try {
         if (req.body.status && statusList.includes(req.body.status)) {
@@ -71,9 +71,9 @@ applicationRouter.patch("/status/:id", async (req, res) => {
     }
 });
 
-applicationRouter.patch("/:id", async (req, res) => {
+applicationRouter.put("/:id", async (req, res) => {
     const id = req.params.id;
-    if (req.body.name && req.body.position && req.body.status && req.body.source && req.body.applied_at) {
+    if (req.body.candidateID && req.body.position && req.body.status && req.body.source && req.body.applied_at) {
         if (statusList.includes(req.body.status)) {
             const updates = req.body;
             try {
