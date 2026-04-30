@@ -6,6 +6,7 @@
     <title>Application manager</title>
     <link rel="stylesheet" href="/styles.css">
     <link rel="stylesheet" href="/{{style}}.css">
+    <script src="/script.js"></script>
 </head>
 <body>
     <main>
@@ -15,7 +16,9 @@
         <div class="right">
             {{#if user}}
             <div class="user-info">
-                
+                <h2>Welcome,<br>{{user.email}}</h2>
+                <p id="user-id">{{user.id}}</p>
+                <a href="/auth/logout">Log out</a>
             </div>
             {{else}}
             <div class="no-user">
@@ -24,6 +27,6 @@
             {{/if}}
         </div>
     </main>
-        
+    <script src="/onLoadScript.js"></script>
 </body>
 </html>

@@ -1,1 +1,64 @@
-<h1>Dashboard</h1>
+<div class="dashboard">
+    <style>
+        .dashboard {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 50px;
+            height: 100%;
+        }
+
+        a, p, h1 {
+            text-decoration: none;
+            color: black;
+        }
+
+        .square {
+            width: 300px;
+            height: 300px;
+            border: 5px solid gray;
+            border-radius: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            align-items: center;
+            box-shadow: 2px 2px 10px 1px rgba(0, 0, 0, 0.8);
+        }
+
+        .square img {
+            width: 150px;
+            height: 150px;;
+        }
+        
+        .square p {
+            font-size: 16px;
+        }
+
+        .attribution {
+            position: absolute;
+            left: 5px;
+            bottom: 5px;
+        }
+    </style>
+    
+    <a href="/candidates" class="square candidates">
+        <h1>Candidates</h1>
+        <img src="/images/candidate.png" alt="Candidate icon">
+        {{#if (isSame totalCandidates 1)}}
+        <p>{{totalCandidates}} candidate</p>
+        {{else}}
+        <p>{{totalCandidates}} candidates</p>
+        {{/if}}
+    </a>
+    <a href="/applications" class="square applications">
+        <h1>Applications</h1>
+        <img src="/images/application.png" alt="Application icon">
+        {{#if (isSame totalApplications 1)}}
+        <p>{{totalApplications}} candidate</p>
+        {{else}}
+        <p>{{totalApplications}} candidates</p>
+        {{/if}}
+    </a>
+
+    <p class="attribution">Administrator business man person Icon by Iconshock on <a href="https://icon-icons.com/authors/20-iconshock">Icon-Icons.com</a></p>
+</div>

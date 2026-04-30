@@ -1,0 +1,53 @@
+<div class="applications">
+    <style>
+        .applications {
+            display: flex;
+            flex-wrap: wrap;
+            padding: 50px 20px;
+            gap: 10px;
+        }
+        .application {
+            width: 300px;
+            height: 150px;
+            border: 3px solid gray;
+            border-radius: 10px;
+        }
+
+        .inner-container {
+            height: 100%;
+            border: 4px solid gray;
+            border-radius: 5px;
+        }
+
+        .applied {border-color: rgb(232, 232, 44);}
+        .interview {border-color: rgb(131, 131, 255);}
+        .evaluation {border-color: rgb(220, 150, 22);}
+        .accepted {border-color: rgb(42, 205, 42);}
+        .rejected {border-color: rgb(226, 68, 68);}
+
+        a, h2, p {
+            text-decoration: none;
+            color: black;
+            text-align: center;
+        }
+
+        .inner-container h2 {
+            margin: 10px 0;
+        }
+
+        .inner-container p {
+            font-size: 16px;
+            margin-top: 20px;
+        }
+    </style>
+
+    {{#each applications}}
+    <a class="application" href="/applications/{{_id}}">
+        <div class="inner-container {{status}}">
+            <h2>{{getCandidateName ../candidateNames candidateID}}'s application</h2>
+            <p>Status: {{status}}</p>
+            <p>Applying to: {{position}}</p>
+        </div>
+    </a>
+    {{/each}}
+</div>

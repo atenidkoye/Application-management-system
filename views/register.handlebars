@@ -1,4 +1,9 @@
+<<<<<<< HEAD
 <form action="/auth/register" method="post">
+=======
+{{> candidateLink}}
+<form id="register" action="/auth/register" method="POST">
+>>>>>>> 1566b8761d72a0b153f6d89d3abf0749e28fae61
     <div class="row">
         <label for="email">Email</label>
         <input type="email" name="email" id="email" required>
@@ -8,8 +13,13 @@
         <input type="password" name="password" id="password" required>
     </div>
     <div class="row">
+<<<<<<< HEAD
         <label for="confirmPassword">Confirm password</label>
         <input type="password" name="confirmPassword" id="confirmPassword" required>
+=======
+        <label for="confirm-password">Confirm password</label>
+        <input type="password" name="confirm-password" id="confirm-password" required>
+>>>>>>> 1566b8761d72a0b153f6d89d3abf0749e28fae61
     </div>
     <a href="/auth/login">I have an account</a>
     <button type="submit">Register</button>

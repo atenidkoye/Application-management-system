@@ -1,0 +1,111 @@
+<form id="update-note-form" class="note-container {{isEditable user.id note.authorID}}">
+    <style>
+        .note-container {
+            width: 250px;
+            height: 250px;
+            background-color: rgb(255, 255, 255);
+            padding: 10px;
+            box-sizing: border-box;
+            border-radius: 10px;
+            border: 1px solid gray;
+            box-shadow: 1px 1px 2px 2px rgba(0, 0, 0, 0.263);
+        }
+
+        form.editable {
+            height: 300px;
+        }
+
+        .note-text {
+            font-size: 18px;
+            height: 200px;
+            width: 100%;
+            resize: none;
+            padding: 5px;
+        }
+
+        .readOnly .note-text {
+            cursor: default;
+            outline: none;
+        }
+
+        .editable .note-text:focus {
+            outline: 3px solid blue;
+        }
+
+        .rating {
+            font-size: 22px;
+            display: flex;
+            justify-content: center;
+            margin: 5px 0;
+        }
+
+        .star {
+            -webkit-text-stroke: 1px black;
+            padding: 0 5px;
+        }
+
+        span.readOnly {
+            cursor: default;
+        }
+
+        span.editable {
+            cursor: pointer;
+        }
+
+        .off {
+            color: black;
+        }
+
+        .hover {
+            color: rgb(152, 152, 22);
+        }
+
+        .on {
+            color: yellow;
+        }
+
+        .button-row {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+        }
+
+        .submit-button {
+            grid-column: span 2;
+            width: 100%;
+            font-size: 20px;
+            padding: 5px;
+            border-radius: 5px;
+        }
+
+        .delete-button {
+            background-color: rgb(255, 100, 100);
+            border: 1px solid rgb(255, 50, 50);
+            border-radius: 5px;
+        }
+
+        .delete-button:hover {
+            background-color: rgb(255, 50, 50);
+        }
+        
+    </style>
+
+    {{#if (isSame user.id note.authorID)}}
+    <textarea class="note-text" placeholder="Thoughts about the application..." {{isEditable user.id note.authorID}}>{{note.text}}</textarea>
+    {{else}}
+    <p class="note-text">{{note.text}}</p>
+    {{/if}}
+    <div class="rating">
+        <span class="star {{isEditable user.id note.authorID}} {{getStarState 1 note.rating}}">★</span>
+        <span class="star {{isEditable user.id note.authorID}} {{getStarState 2 note.rating}}">★</span>
+        <span class="star {{isEditable user.id note.authorID}} {{getStarState 3 note.rating}}">★</span>
+        <span class="star {{isEditable user.id note.authorID}} {{getStarState 4 note.rating}}">★</span>
+        <span class="star {{isEditable user.id note.authorID}} {{getStarState 5 note.rating}}">★</span>
+    </div>
+    {{#if (isSame user.id note.authorID)}}
+    <div class="button-row">
+        <button type="submit" class="submit-button">Update note</button>
+        <button type="button" class="delete-button" onclick="deleteNote('{{note.applicationID}}', '{{note.authorID}}')">🗑️</button>
+    </div>
+    {{/if}}
+</form>
