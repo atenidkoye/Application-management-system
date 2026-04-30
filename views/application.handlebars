@@ -1,3 +1,4 @@
+<a href="/applications" class="back">BACK TO APPLICATIONS</a>
 <div id="application">
 
     <style>
@@ -19,6 +20,7 @@
             border-radius: 10px;
             padding: 10px;
             background-color: white;
+            position: relative;
         }
 
         .legend {
@@ -99,6 +101,13 @@
             overflow-y: scroll;
             overflow-x: hidden;
         }
+
+        a.candidate {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            font-size: 18px;
+        }
     </style>
 
     <div class="application-container">
@@ -113,6 +122,7 @@
                 <p class="skills">Skills: <span>{{application.skills}}</span></p>
                 <p class="experience">Experience: <span>{{application.experience}}</span></p>
             </div>
+            <a class="candidate" href="/candidates/{{application.candidateID}}">Go to the candidate</a>
         </div>
         <form class="legend">
             <label class="status applied"><p>applied</p>

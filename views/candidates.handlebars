@@ -1,31 +1,50 @@
-<h1>Candidates</h1>
+<a href="/dashboard" class="back">DASHBOARD</a>
+<div class="applications">
+    <style>
+        .applications {
+            display: flex;
+            flex-wrap: wrap;
+            padding: 50px 20px;
+            gap: 10px;
+        }
+        .application {
+            width: 300px;
+            height: 150px;
+            border: 3px solid gray;
+            border-radius: 10px;
+        }
 
-<a href="/candidates/add">Add Candidate</a>
+        .inner-container {
+            height: 100%;
+            border: 4px solid gray;
+            border-radius: 5px;
+        }
 
-<ul class="candidate-list">
-    {{#each candidates }}
-    <li class="candidate-card">
-        <div>
-            <strong>{{this.name}}</strong><br>
-            {{this.email}}<br>
-            <small>{{this.skills}}</small>
-        </div>
-        
-        <div>
-            // View Candidates
-            <a href="candidates/{{this._id}}">View</a>
+        .applied {border-color: rgb(232, 232, 44);}
+        .interview {border-color: rgb(131, 131, 255);}
+        .evaluation {border-color: rgb(220, 150, 22);}
+        .accepted {border-color: rgb(42, 205, 42);}
+        .rejected {border-color: rgb(226, 68, 68);}
 
-            // Edit Candidates
-            <a href="candidates/edit/{{this._id}}">Edit</a>
-            // Delete Candidate
-            <form action="/candidates/delete/{{this._id}}" method="POST" style="display: inline;">
-                <button type="submit" onclick="return confirm('Delete this candidate?')">
-                    Delete
-                </button>
-            </form>
-        </div>
-    </li>
+        a, h2, p {
+            text-decoration: none;
+            color: black;
+            text-align: center;
+        }
 
+        .application h2 {
+            margin: 10px 0;
+        }
+
+        .application p {
+            font-size: 16px;
+            margin-top: 20px;
+        }
+    </style>
+    {{#each candidates}}
+    <a class="application" href="/candidates/{{_id}}">
+        <h2>{{name}}</h2>
+        <p class="email">{{email}}</p>
+    </a>
     {{/each}}
-
-</ul>
+</div>

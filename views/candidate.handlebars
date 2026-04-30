@@ -1,0 +1,38 @@
+<a href="/candidates" class="back">BACK TO CANDIDATES</a>
+<div class="candidate">
+    <style>
+        .candidate {
+            width: 40%;
+            height: 85vh;
+            margin: 60px 50px;
+            padding: 50px;
+            border: 2px solid gray;
+            border-radius: 10px;
+            position: relative;
+            background-color: white;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        p {
+            font-size: 20px;
+            padding: 5px;
+        }
+
+        a.application {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            font-size: 18px;
+        }
+    </style>
+
+    <h1>{{candidate.name}}</h1>
+    <p class="age">Age: {{candidate.age}}</p>
+    <p class="email">Email: {{candidate.email}}</p>
+    <p class="phone">Phone: {{candidate.phone}}</p>
+    <p class="country">Country: {{candidate.country}}</p>
+    <a class="application" href="/applications/{{applicationID}}">Go to the application</a>
+</div>
