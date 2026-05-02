@@ -4,9 +4,18 @@ const exhbs = require ("express-handlebars");
 const mongoose = require("mongoose");
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
+const flash = require("connect-flash");
+const session = require("express-session");
 
+
+const app = express();
 
 // Middleware
+app.use(session({
+    secret: process.env.JWT_SECRET || "secret",
+    resave: false,
+    saveUninitialized: false
+}));
 const auth = require("./middleware/auth");
 const attachUser = require("./middleware/attachUser");
 const errorHandler = require("./middleware/errorHandler");
@@ -31,7 +40,6 @@ const user = require("./models/user");
 dotenv.config();
 const port = process.env.PORT || 5000;
 
-const app = express();
 
 // Middlewares
 app.use(cookieParser());
@@ -40,6 +48,7 @@ app.use(attachUser);
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 app.use(express.static("public"))
+app.use(flash())
 
 
 const hbs = exhbs.create({
