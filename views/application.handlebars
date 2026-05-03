@@ -109,6 +109,41 @@
             margin: 20px;
             font-size: 18px;
         }
+
+        @media (max-width: 1200px) {
+            .application-container {
+                grid-column: span 3;
+            }
+            .application-notes {
+                grid-column: span 2;
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 1050px) {
+            #application {
+                overflow: scroll;
+            }
+
+            .application-container {
+                grid-column: span 5;
+            }
+            .application-notes {
+                grid-column: span 5;
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 800px) {
+            .application-notes {
+                grid-gap: 10px;
+                grid-template-columns: 1fr;
+            }
+
+            .note-container {
+                margin: 0 auto;
+            }
+        }
     </style>
 
     <div class="application-container">
