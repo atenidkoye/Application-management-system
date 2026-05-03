@@ -7,7 +7,7 @@ exports.candidateSchema = joi.object({
         "string.min": "Name must be at least 2 characters"
     }),
 
-    email: joi.string().email().required().message({
+    email: joi.string().email().required().messages({
         "string.email": "invalid email",
         "string.empty": "Email is required"
     }),
