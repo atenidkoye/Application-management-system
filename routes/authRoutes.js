@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const ctrl = require("../controllers/authContoller");
+const ctrl = require("../controllers/authContoller")
 const validate = require("../middleware/validate")
 const {registerSchema, loginSchema } = require("../validations/authValidation");
 

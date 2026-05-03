@@ -1,6 +1,8 @@
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
-const User = require("../models/user")
+const User = require("../models/user");
+const sendEmail = require("../utils/nodemailer");
+const Validate = require("../validations/authValidation")
 // Register
 exports.register = async(req, res, next) => {
     try {
@@ -29,6 +31,12 @@ exports.register = async(req, res, next) => {
         email,
         password: hashPassword
     });
+
+    sendEmail(
+        email,
+        "Your Account has been Created",
+        "Welcome"
+    ).catch(err => console.log("Email error", err.message));
     
     req.flash("success", "Account created")
     res.redirect("/auth/login")

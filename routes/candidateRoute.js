@@ -24,3 +24,10 @@ router.post("/update/:id", auth, ctrl.updateCandidate);
 router.get("/:id", auth, ctrl.getOneCandidate);
 
 module.exports = router;
+
+
+
+
+
+
+

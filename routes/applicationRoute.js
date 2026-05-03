@@ -1,10 +1,11 @@
 const express = require("express");
 const Application = require("../models/Application")
 const applicationRouter = express.Router();
+const auth = require ("../middleware/auth");
 
 const statusList = ["applied", "interview", "evaluation", "accepted", "rejected"];
 
-applicationRouter.get("/", async (req, res) => {
+applicationRouter.get("/", async, auth, (req, res) => {
     try {
         const result = await Application.find();
         res.status(200).json(result);
@@ -14,7 +15,7 @@ applicationRouter.get("/", async (req, res) => {
     }
 });
 
-applicationRouter.get("/:id", async (req, res) => {
+applicationRouter.get("/:id", auth, async (req, res) => {
     const id = req.params.id;
     try {
         const application = await Application.findById(id);
@@ -29,7 +30,7 @@ applicationRouter.get("/:id", async (req, res) => {
     }
 });
 
-applicationRouter.post("/", async (req, res) => {
+applicationRouter.post("/", async, auth, (req, res) => {
     if (req.body.candidateID && req.body.position && req.body.status && req.body.source && req.body.applied_at) {
         if (statusList.includes(req.body.status)) {
             const application = new Application({
@@ -56,7 +57,7 @@ applicationRouter.post("/", async (req, res) => {
     }
 );
 
-applicationRouter.patch("/:id/status", async (req, res) => {
+applicationRouter.patch("/:id/status", async, auth, (req, res) => {
     const id = req.params.id;
     try {
         if (req.body.status && statusList.includes(req.body.status)) {
@@ -71,7 +72,7 @@ applicationRouter.patch("/:id/status", async (req, res) => {
     }
 });
 
-applicationRouter.put("/:id", async (req, res) => {
+applicationRouter.put("/:id", async, auth, (req, res) => {
     const id = req.params.id;
     if (req.body.candidateID && req.body.position && req.body.status && req.body.source && req.body.applied_at) {
         if (statusList.includes(req.body.status)) {
@@ -89,7 +90,7 @@ applicationRouter.put("/:id", async (req, res) => {
     }
 });
 
-applicationRouter.delete("/:id", async (req, res) => {
+applicationRouter.delete("/:id", async, auth, (req, res) => {
     const id = req.params.id;
     try {
         const result = await Application.deleteOne({_id: id});

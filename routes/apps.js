@@ -7,7 +7,7 @@ const cors = require("cors");
 const flash = require("connect-flash");
 const session = require("express-session");
 
-dotenv.config();
+
 const app = express();
 
 // Middleware
@@ -16,7 +16,6 @@ app.use(session({
     resave: false,
     saveUninitialized: false
 }));
-
 const auth = require("./middleware/auth");
 const attachUser = require("./middleware/attachUser");
 const errorHandler = require("./middleware/errorHandler");
@@ -38,6 +37,7 @@ const user = require("./models/user");
 
 
 // Config
+dotenv.config();
 const port = process.env.PORT || 5000;
 
 
@@ -48,7 +48,7 @@ app.use(attachUser);
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 app.use(express.static("public"))
-app.use(flash());
+app.use(flash())
 
 
 const hbs = exhbs.create({
