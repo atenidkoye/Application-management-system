@@ -39,9 +39,16 @@ const noteLoaded = (parent) => {
 }
 
 const deleteNote = (applicationID, authorID) => {
-    const url = `http://localhost:5000/api/applications/${applicationID}/notes/${authorID}`;
+    const url = `/api/applications/${applicationID}/notes/${authorID}`;
     
     fetch(url, {
         method: "DELETE"
     }).then(response => location.reload());
+}
+
+const deleteCandidate = (candidateID) => {
+    const url = `/candidates/${candidateID}`;
+    fetch(url, {
+        method: "DELETE"
+    }).then(response => location.href = response.url)
 }

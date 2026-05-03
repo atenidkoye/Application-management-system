@@ -23,6 +23,9 @@ router.post("/update/:id", auth, validate(candidateSchema),ctrl.updateCandidate)
 // Get one
 router.get("/:id", auth, ctrl.getOneCandidate);
 
+// Delete
+router.delete("/:id", auth, ctrl.deleteCandidate);
+
 module.exports = router;
 
 

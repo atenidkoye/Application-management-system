@@ -1,5 +1,6 @@
 const Candidate = require("../models/Candidate");
 const Application = require("../models/Application");
+const {Note} = require("../models/note");
 const sendEmail = require("../utils/nodemailer");
 
 
@@ -131,3 +132,29 @@ exports.deleteForm = async (req, res, next) => {
         next(err);
     }
 };
+
+exports.deleteCandidate = async (req, res, next) => {
+    try{
+        let deleted = await Candidate.findOneAndDelete({_id: req.params.id}).lean();
+
+        if (!deleted) {
+            req.flash("error", "Candidate not found");
+            return res.redirect("/candidates");
+        }
+
+        req.flash("success", "Candidate deleted successfully");
+
+        deleted = await Application.findOneAndDelete({candidateID: req.params.id}).lean();
+
+        if (deleted) {
+            await Note.deleteMany({applicationID: deleted._id});
+        } else {
+            req.flash("error", "Candidate doesn't have application");
+            return res.redirect("/candidates");
+        }
+
+        res.redirect("/candidates");
+    } catch (err) {
+        next(err);
+    }
+}

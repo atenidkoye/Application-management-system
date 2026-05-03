@@ -28,6 +28,21 @@
             font-size: 18px;
         }
 
+        button {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            font-size: 20px;
+            padding: 5px;
+            background-color: rgb(255, 100, 100);
+            border: 1px solid rgb(255, 50, 50);
+            border-radius: 5px;
+        }
+
+        button:hover {
+            background-color: rgb(255, 50, 50);
+        }
+
         @media (max-width: 1000px) {
             .candidate {
                 width: 80%;
@@ -41,4 +56,5 @@
     <p class="phone">Phone: {{candidate.phone}}</p>
     <p class="country">Country: {{candidate.country}}</p>
     <a class="application" href="/applications/{{applicationID}}">Go to the application</a>
+    <button onclick="deleteCandidate('{{candidate._id}}')">🗑️</button>
 </div>
