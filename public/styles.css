@@ -31,6 +31,7 @@ main {
     text-align: center;
     padding-top: 25vh;
     height: 50%;
+    min-width: 240px;
 }
 
 #user-id {
@@ -88,4 +89,30 @@ a:visited {
 
 .back:hover {
     background-color: gray;
+}
+
+@media (max-width: 1200px) {
+    .left {
+        grid-column: span 7;
+    }
+
+    .right {
+        grid-column: span 3;
+    }
+}
+
+@media (max-width: 1050px) {
+    .left {
+        overflow: scroll;
+    }
+}
+
+@media (max-width: 800px) {
+    .left {
+        grid-column: span 6;
+    }
+
+    .right {
+        grid-column: span 4;
+    }
 }

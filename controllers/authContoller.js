@@ -39,7 +39,7 @@ exports.register = async(req, res, next) => {
     ).catch(err => console.log("Email error", err.message));
     
     req.flash("success", "Account created")
-    res.redirect("/auth/login")
+    res.redirect("/dashboard")
     } catch (err) {
         next(err);
     }   
