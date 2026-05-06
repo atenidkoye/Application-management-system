@@ -7,84 +7,86 @@
     <link rel="stylesheet" href="/apply.css">
 </head>
 <body>
-    <form action="/api/apply/candidate" method="POST">
-        <div class="candidate-form">
-            <h1>Your information</h1>
-            <div class="inputs">
-                <div class="row">
-                    <div class="pair">
-                        <label for="first-name">First name</label>
-                        <input name="first-name" placeholder="John" type="text" required>
+    <main>
+        <form action="/api/apply/candidate" method="POST">
+            <div class="candidate-form">
+                <h1>Your information</h1>
+                <div class="inputs">
+                    <div class="row">
+                        <div class="pair">
+                            <label for="first-name">First name</label>
+                            <input name="first-name" placeholder="John" type="text" required>
+                        </div>
+                        <div class="pair">
+                            <label for="last-name">Last name</label>
+                            <input name="last-name" placeholder="Doe" type="text" required>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="pair">
+                            <label for="email-address">Email address</label>
+                            <input name="email-address" placeholder="john.doe@gmail.com" type="email" required>
+                        </div>
+                        <div class="pair">
+                            <label for="phone-number">Phone number</label>
+                            <input name="phone-number" placeholder="+00123456789" type="tel" required>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="pair">
+                            <label for="country">Country</label>
+                            <input name="country" placeholder="Finland" type="text" required>
+                        </div>
+                        <div class="pair">
+                            <label for="age">Age</label>
+                            <input name="age" type="number" min="18" value="18" max="70" id="age" required>
+                        </div>
                     </div>
                     <div class="pair">
-                        <label for="last-name">Last name</label>
-                        <input name="last-name" placeholder="Doe" type="text" required>
+                        <label for="about">About you</label>
+                        <textarea name="about" placeholder="I am..." required></textarea>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="pair">
-                        <label for="email-address">Email address</label>
-                        <input name="email-address" placeholder="john.doe@gmail.com" type="email" required>
-                    </div>
-                    <div class="pair">
-                        <label for="phone-number">Phone number</label>
-                        <input name="phone-number" placeholder="+00123456789" type="tel" required>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="pair">
-                        <label for="country">Country</label>
-                        <input name="country" placeholder="Finland" type="text" required>
-                    </div>
-                    <div class="pair">
-                        <label for="age">Age</label>
-                        <input name="age" type="number" min="18" value="18" max="70" required>
-                    </div>
-                </div>
-                <div class="pair">
-                    <label for="about">About you</label>
-                    <textarea name="about" placeholder="I am..." required></textarea>
                 </div>
             </div>
-        </div>
-        <div class="application-form">
-            <h1>Your application</h1>
-            <div class="inputs">
-                <div class="row">
-                    <div class="pair">
-                        <label for="position">Position</label>
-                        <select name="position" required>
-                            {{#each positions}}
-                            <option value="{{this}}">{{this}}</option>
-                            {{/each}}
-                        </select>
+            <div class="application-form">
+                <h1>Your application</h1>
+                <div class="inputs">
+                    <div class="row">
+                        <div class="pair">
+                            <label for="position">Position</label>
+                            <select name="position" required id="position">
+                                {{#each positions}}
+                                <option value="{{this}}">{{this}}</option>
+                                {{/each}}
+                            </select>
+                        </div>
+                        <div class="pair">
+                            <label for="start-date">When can you start?</label>
+                            <input name="start-date" type="date" required>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="pair">
+                            <label for="min-pay">Minimal expected pay (per month)</label>
+                            <input name="min-pay" type="number" min="600" max="1999" id="min-pay" required>
+                        </div>
+                        <div class="pair">
+                            <label for="max-pay">Maximal expected pay (per month)</label>
+                            <input name="max-pay" type="number" min="601" max="2000" id="max-pay" required>
+                        </div>
                     </div>
                     <div class="pair">
-                        <label for="start-date">When can you start?</label>
-                        <input name="start-date" type="date" required>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="pair">
-                        <label for="min-pay">Minimal expected pay (per month)</label>
-                        <input name="min-pay" type="number" min="600" max="1999" required>
+                        <label for="skills">Your skills</label>
+                        <textarea name="skills" placeholder="I can..." required></textarea>
                     </div>
                     <div class="pair">
-                        <label for="max-pay">Maximal expected pay (per month)</label>
-                        <input name="max-pay" type="number" min="601" max="2000" required>
+                        <label for="experience">Your work experience</label>
+                        <textarea name="experience" placeholder="I worked at..." required></textarea>
                     </div>
-                </div>
-                <div class="pair">
-                    <label for="skills">Your skills</label>
-                    <textarea name="skills" placeholder="I can..." required></textarea>
-                </div>
-                <div class="pair">
-                    <label for="experience">Your work experience</label>
-                    <textarea name="experience" placeholder="I worked at..." required></textarea>
                 </div>
             </div>
-        </div>
-        <button type="submit">Submit your application</button>
-    </form>
+            <button type="submit">Submit your application</button>
+        </form>
+    </main>
 </body>
 </html>

@@ -14,15 +14,19 @@ main {
     height: 100vh;
 }
 
+p {
+    line-height: 1.5;
+}
+
 .left {
     grid-column: span 8;
-    background-color: rgb(215, 217, 231);
+    background-color: #E5EAF0;
     position: relative;
 }
 
 .right {
     grid-column: span 2;
-    background-color: rgb(81, 113, 231);
+    background-color: #7892ED;
     border-left: 2px solid rgb(49, 74, 167);
 }
 
@@ -68,7 +72,12 @@ main {
     transform: translateY(-50%);
 }
 
-a:visited {
+.no-user p {
+    line-height: 1.5;
+}
+
+a, a:visited {
+    font-weight: bold;
     color: blue;
 }
 
@@ -78,8 +87,8 @@ a:visited {
     left: 5px;
     border: 1px solid gray;
     border-radius: 5px;
-    padding: 0 20px;
-    height: 40px;
+    padding: 10px 20px;
+    height: 45px;
     display: flex;
     justify-content: center;
     align-items: center;

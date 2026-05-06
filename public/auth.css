@@ -1,3 +1,9 @@
+h1 {
+    position: absolute;
+    left: 5px;
+    top: 5px;
+}
+
 form {
     width: 300px;
     margin: 50vh auto;
@@ -30,7 +36,7 @@ label {
     margin-left: 10px;
     position: absolute;
     transform: translateY(-60%);
-    background-color: rgb(215, 217, 231);
+    background-color: #E5EAF0;
     transition: all 0.2s ease-in-out;
 }
 
@@ -51,11 +57,15 @@ button {
     background-color: rgb(53, 53, 215);
     border-radius: 5px;
     color: white;
-    padding: 5px 30px;
+    padding: 10px 30px;
     position: absolute;
     right: 0;
 }
 
 button:hover {
     background-color: rgb(104, 132, 255);
+}
+
+a {
+    font-size: 18px;
 }
