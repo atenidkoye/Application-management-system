@@ -98,16 +98,16 @@
     <p class="note-text">{{note.text}}</p>
     {{/if}}
     <div class="rating">
-        <span tabindex="0" class="star {{isEditable user.id note.authorID}} {{getStarState 1 note.rating}}">★</span>
-        <span tabindex="0" class="star {{isEditable user.id note.authorID}} {{getStarState 2 note.rating}}">★</span>
-        <span tabindex="0" class="star {{isEditable user.id note.authorID}} {{getStarState 3 note.rating}}">★</span>
-        <span tabindex="0" class="star {{isEditable user.id note.authorID}} {{getStarState 4 note.rating}}">★</span>
-        <span tabindex="0" class="star {{isEditable user.id note.authorID}} {{getStarState 5 note.rating}}">★</span>
+        <span tabindex="0" class="star {{isEditable user.id note.authorID}} {{getStarState 1 note.rating}}" role="button" aria-label="1 Star">★</span>
+        <span tabindex="0" class="star {{isEditable user.id note.authorID}} {{getStarState 2 note.rating}}" role="button" aria-label="2 Stars">★</span>
+        <span tabindex="0" class="star {{isEditable user.id note.authorID}} {{getStarState 3 note.rating}}" role="button" aria-label="3 Stars">★</span>
+        <span tabindex="0" class="star {{isEditable user.id note.authorID}} {{getStarState 4 note.rating}}" role="button" aria-label="4 Stars">★</span>
+        <span tabindex="0" class="star {{isEditable user.id note.authorID}} {{getStarState 5 note.rating}}" role="button" aria-label="5 Stars">★</span>
     </div>
     {{#if (isSame user.id note.authorID)}}
     <div class="button-row">
         <button type="submit" class="submit-button">Update note</button>
-        <button type="button" class="delete-button" onclick="deleteNote('{{note.applicationID}}', '{{note.authorID}}')">🗑️</button>
+        <button type="button" class="delete-button" onclick="deleteNote('{{note.applicationID}}', '{{note.authorID}}')" aria-label="Delete Note">🗑️</button>
     </div>
     {{/if}}
 </form>
