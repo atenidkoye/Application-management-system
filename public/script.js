@@ -30,12 +30,25 @@ const noteLoaded = (parent) => {
             stars.forEach(turnOff);
             stars.slice(0, index + 1).forEach(turnOn);
         })
+        star.addEventListener("keydown", (event) => {
+            if (event.key == "Enter") {
+                stars.forEach(turnOff);
+                stars.slice(0, index + 1).forEach(turnOn);
+            }
+        })
         star.addEventListener("mouseover", () => {
             stars.forEach(hoverOff);
             stars.slice(0, index + 1).forEach(hoverOn);
         })
         star.addEventListener("mouseout", () => stars.forEach(hoverOff))
     })
+}
+
+const applyStatus = (event) => {
+    if (event.key == "Enter") {
+        const input = event.target.querySelector("input");
+        input.click();
+    }
 }
 
 const deleteNote = (applicationID, authorID) => {

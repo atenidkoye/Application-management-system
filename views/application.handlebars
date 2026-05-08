@@ -165,19 +165,19 @@
             <a class="candidate" href="/candidates/{{application.candidateID}}">Go to the candidate</a>
         </div>
         <form class="legend">
-            <label class="status applied"><p>applied</p>
+            <label onkeydown="applyStatus(event)" tabindex="0" for="status" class="status applied"><p>applied</p>
                 <input {{isChecked application.status "applied"}} value="applied" type="radio" name="status" class="status-input"></input>
             </label>
-            <label class="status interview"><p>interview</p>
+            <label onkeydown="applyStatus(event)" tabindex="0" for="status" class="status interview"><p>interview</p>
                 <input {{isChecked application.status "interview"}} value="interview" type="radio" name="status" class="status-input"></input>
             </label>
-            <label class="status evaluation"><p>evaluation</p>
+            <label onkeydown="applyStatus(event)" tabindex="0" for="status" class="status evaluation"><p>evaluation</p>
                 <input {{isChecked application.status "evaluation"}} value="evaluation" type="radio" name="status" class="status-input"></input>
             </label>
-            <label class="status accepted"><p>accepted</p>
+            <label onkeydown="applyStatus(event)" tabindex="0" for="status" class="status accepted"><p>accepted</p>
                 <input {{isChecked application.status "accepted"}} value="accepted" type="radio" name="status" class="status-input"></input>
             </label>
-            <label class="status rejected"><p>rejected</p>
+            <label onkeydown="applyStatus(event)" tabindex="0" for="status" class="status rejected"><p>rejected</p>
                 <input {{isChecked application.status "rejected"}} value="rejected" type="radio" name="status" class="status-input"></input>
             </label>
         </form>
