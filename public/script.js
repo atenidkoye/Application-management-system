@@ -51,6 +51,11 @@ const applyStatus = (event) => {
     }
 }
 
+const setStatus = (label) => {
+    const input = label.querySelector("input");
+    input.click();
+}
+
 const deleteNote = (applicationID, authorID) => {
     const url = `/api/applications/${applicationID}/notes/${authorID}`;
     
