@@ -15,36 +15,36 @@
                     <div class="row">
                         <div class="pair">
                             <label for="first-name">First name</label>
-                            <input name="first-name" placeholder="John" type="text" required>
+                            <input name="first-name" aria-label="First Name" placeholder="John" type="text" required>
                         </div>
                         <div class="pair">
                             <label for="last-name">Last name</label>
-                            <input name="last-name" placeholder="Doe" type="text" required>
+                            <input name="last-name" aria-label="Last Name" placeholder="Doe" type="text" required>
                         </div>
                     </div>
                     <div class="row">
                         <div class="pair">
                             <label for="email-address">Email address</label>
-                            <input name="email-address" placeholder="john.doe@gmail.com" type="email" required>
+                            <input name="email-address" aria-label="Email Address" placeholder="john.doe@gmail.com" type="email" required>
                         </div>
                         <div class="pair">
                             <label for="phone-number">Phone number</label>
-                            <input name="phone-number" placeholder="+00123456789" type="tel" required>
+                            <input name="phone-number" aria-label="Phone Number" placeholder="+00123456789" type="tel" required>
                         </div>
                     </div>
                     <div class="row">
                         <div class="pair">
                             <label for="country">Country</label>
-                            <input name="country" placeholder="Finland" type="text" required>
+                            <input name="country" aria-label="Country" placeholder="Finland" type="text" required>
                         </div>
                         <div class="pair">
                             <label for="age">Age</label>
-                            <input name="age" type="number" min="18" value="18" max="70" id="age" required>
+                            <input name="age" aria-label="Age" type="number" min="18" value="18" max="70" id="age" required>
                         </div>
                     </div>
                     <div class="pair">
                         <label for="about">About you</label>
-                        <textarea name="about" placeholder="I am..." required></textarea>
+                        <textarea name="about" aria-label="About You" placeholder="I am..." required></textarea>
                     </div>
                 </div>
             </div>
@@ -54,7 +54,7 @@
                     <div class="row">
                         <div class="pair">
                             <label for="position">Position</label>
-                            <select name="position" required id="position">
+                            <select name="position" aria-label="Position" required id="position">
                                 {{#each positions}}
                                 <option value="{{this}}">{{this}}</option>
                                 {{/each}}
@@ -62,7 +62,7 @@
                         </div>
                         <div class="pair">
                             <label for="start-date">When can you start?</label>
-                            <input name="start-date" type="date" required>
+                            <input name="start-date" aria-label="Start Date" type="date" required>
                         </div>
                     </div>
                     <div class="row">
@@ -77,11 +77,11 @@
                     </div>
                     <div class="pair">
                         <label for="skills">Your skills</label>
-                        <textarea name="skills" placeholder="I can..." required></textarea>
+                        <textarea name="skills" aria-label="Your Skills" placeholder="I can..." required></textarea>
                     </div>
                     <div class="pair">
                         <label for="experience">Your work experience</label>
-                        <textarea name="experience" placeholder="I worked at..." required></textarea>
+                        <textarea name="experience" aria-label="Your Work Experience" placeholder="I worked at..." required></textarea>
                     </div>
                 </div>
             </div>
